@@ -33,7 +33,7 @@ FlowRouter.route("/login", {
     name: "Login",
     action() {
         mount(LoginLayout, {
-            
+            navBar: (<NavBar />),
         })
     }
 });
