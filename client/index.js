@@ -8,6 +8,7 @@ import { mount } from 'react-mounter';
 //Layouts
 import HomeLayout from './home/HomeLayout';
 import LoginLayout from './login/LoginLayout';
+import AboutLayout from './about/AboutLayout';
 
 //Components
 import NavBar from './common/NavBar';
@@ -37,4 +38,14 @@ FlowRouter.route("/login", {
         })
     }
 });
+
+FlowRouter.route("/about", {
+    name: "About",
+    action() {
+        mount(AboutLayout, {
+            navBar: (<NavBar />),
+        })
+    }
+});
+
 
