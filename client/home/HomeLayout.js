@@ -6,8 +6,9 @@ export default class HomeLayout extends React.Component{
     render(){
         return(
             <div>
-                <header>{this.props.navBar}</header>
+                <div>{this.props.navBar}</div>
                 <h1>Hello!</h1>
+                <div>{this.props.home}</div>
             </div>
         )
     }
