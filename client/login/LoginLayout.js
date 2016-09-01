@@ -12,7 +12,7 @@ export default class LoginLayout extends React.Component{
         return(
             <div>
                 <div>{this.props.navBar}</div>
-                <div>LOGIN FORM / STUFF HERE</div>
+                <div>{this.props.loginForm}</div>
             </div>
         )
     }

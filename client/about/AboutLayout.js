@@ -1,12 +1,12 @@
 //Import Packages
 import React from 'react';
 
-//Layout: Home - Layout for Home and its components
+//Layout: About - Layout for About and its components
 
 
 export default class AboutLayout extends React.Component{
     render(){
-        const title = "About - Brackets and Ladders"
+        const title = "About | Brackets and Ladders"
         DocHead.setTitle(title);
 
         return(

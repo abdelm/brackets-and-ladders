@@ -13,6 +13,7 @@ import AboutLayout from './about/AboutLayout';
 //Components
 import NavBar from './common/NavBar';
 import Home from './home/components/Home';
+import LoginForm from './login/components/LoginForm';
 
 /*
 
@@ -25,7 +26,7 @@ FlowRouter.route("/", {
     action() {
         mount(HomeLayout, {
             navBar: (<NavBar />),
-            home: (<Home />)
+            home: (<Home />),
         })
     }
 });
@@ -35,6 +36,7 @@ FlowRouter.route("/login", {
     action() {
         mount(LoginLayout, {
             navBar: (<NavBar />),
+            loginForm: (<LoginForm />),
         })
     }
 });
