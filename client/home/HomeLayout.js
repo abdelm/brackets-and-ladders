@@ -6,7 +6,7 @@ import React from 'react';
 
 export default class HomeLayout extends React.Component{
     render(){
-        const title = "Brackets and Ladders - Home"
+        const title = "Home | Brackets and Ladders"
         DocHead.setTitle(title);
 
         return(
