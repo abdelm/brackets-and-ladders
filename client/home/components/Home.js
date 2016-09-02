@@ -8,6 +8,6 @@ import { Meteor } from 'meteor/meteor';
 //Page: Home - Landing page of site
 export default class Home extends React.Component{
     render(){
-        return <h1>Welcome to fight club!</h1>;
+        return <h1>Get started by creating an account!</h1>;
     }
 }
