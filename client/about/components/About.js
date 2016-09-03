@@ -9,22 +9,25 @@ import { Meteor } from 'meteor/meteor';
 export default class About extends React.Component{
     render(){
         return (
-        	<div className="ui text container">
-        		<h1 className="ui header">About</h1>
-	        	<div className="ui raised very padded text container segment">
-					<div className="ui two column divided grid">
-						<div className="column">
-							<p>ABOUT SECTION IN HERE</p>
-							<p>SECOND PARAGRAPH OF ABOUT SECTION HERE </p>
-						</div>
-						<div className="column">
-							<h2>Team Members:</h2>
-							<p>Sebastian Guillema, Hayden Crain, Abelrahman Ahmed, 
-							Ken Wong, Chris Benco and Muhammed Ali.</p>
-						</div>
+        	<div className="ui raised very padded text container segment">
+				<div className="ui two column divided grid">
+					<div className="column">
+						<h1 className="ui header">About</h1>
+						<p>ABOUT SECTION IN HERE</p>
+						<p>SECOND PARAGRAPH OF ABOUT SECTION HERE </p>
+					</div>
+					<div className="eight right aligned column">
+						<h2>Team Members:</h2>
+						
+						<p>Sebastian Guillema <br />
+						Hayden Crain <br />
+						Abelrahman Ahmed <br />
+						Ken Wong <br />
+						Chris Benco <br />
+						Muhammed Ali</p>
 					</div>
 				</div>
-        	</div>	
-        )
+			</div>        
+		)
     }
 }
