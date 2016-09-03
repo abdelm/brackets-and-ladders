@@ -8,15 +8,15 @@ import { mount } from 'react-mounter';
 //Layouts
 import HomeLayout from './home/HomeLayout';
 import LoginLayout from './login/LoginLayout';
+import RegisterLayout from './register/RegisterLayout';
 import AboutLayout from './about/AboutLayout';
-import SignupLayout from './signup/SignupLayout';
 
 //Components
 import NavBar from './common/NavBar';
 import Home from './home/components/Home';
 import About from './about/components/About';
 import LoginForm from './login/components/LoginForm';
-import SignupForm from './signup/components/SignupForm';
+import RegisterForm from './register/components/RegisterForm';
 
 /*
 
@@ -44,12 +44,12 @@ FlowRouter.route("/login", {
     }
 });
 
-FlowRouter.route("/signup", {
-    name: "Signup",
+FlowRouter.route("/register", {
+    name: "Register",
     action() {
-        mount(SignupLayout, {
+        mount(RegisterLayout, {
             navBar: (<NavBar />),
-            signupForm: (<SignupForm />),
+            registerForm: (<RegisterForm />),
         })
     }
 });

@@ -10,50 +10,53 @@ export default class NavBar extends React.Component{
     constructor(){
         super()
         this.state = {
-            signUpButton: true,
-            loginButton: true,
-            logoutButton: false,
+            accountButtons: false,
         };
-        this.toggleLoginButton = this.toggleLoginButton.bind(this);
-        this.toggleSignUpButton = this.toggleSignUpButton.bind(this);
         this.handleLogout = this.handleLogout.bind(this);
     }
 
-    toggleLoginButton(){
-
+    toggleAccountButtons(){
+        this.setState({accountButtons: !this.state.accountButtons});
     }
 
-    toggleSignUpButton(){
-
-    }
-
-
-    loginUser(){
-
-    }
-
-    logoutUser(){
-
-    }
-
-    handleLogout(){
-
+    handleLogout(event){
+        event.preventDefault();
+        Meteor.logout(
+            (err) => {
+                if (err) {
+                    console.log('Logout Failure.');
+                    console.log(err);
+                } else {
+                    console.log('Logout Success.');
+                }
+            }
+        );
+        this.toggleAccountButtons();
     }
 
     render(){
-        let loggedIn = true; //temporary, will set this to check if the user is actually logged in once account functionality has been added
-        if (loggedIn){
+        //Checks if a user is logged in and changes account buttons on the nav bar
+        let accountButtons;
+        if (this.state.accountButtons === true || !Meteor.user()){
             accountButtons = (
                 <div className="right menu">
                     <div className="item">
-                        <a className="ui button" href="/login">Log-in</a>
+                        <a className="ui button" href="/login">Login</a>
                     </div>
                     <div className="item">
-                        <a className="ui primary button" href="/signup">Sign up</a>
+                        <a className="ui primary button" href="/register">Sign up</a>
                     </div>
                 </div>
-                );
-        }
+            );
+        } else {
+            accountButtons = (
+                <div className="right menu">
+                    <div className="item">
+                        <a className="ui button" onClick={this.handleLogout}>Logout</a>
+                    </div>
+                </div>
+            );
+        };
 
         return(
             <div className="ui menu">
