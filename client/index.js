@@ -8,12 +8,14 @@ import { mount } from 'react-mounter';
 //Layouts
 import HomeLayout from './home/HomeLayout';
 import LoginLayout from './login/LoginLayout';
+import RegisterLayout from './register/RegisterLayout';
 import AboutLayout from './about/AboutLayout';
 
 //Components
 import NavBar from './common/NavBar';
 import Home from './home/components/Home';
 import LoginForm from './login/components/LoginForm';
+import RegisterForm from './register/components/RegisterForm';
 
 /*
 
@@ -37,6 +39,16 @@ FlowRouter.route("/login", {
         mount(LoginLayout, {
             navBar: (<NavBar />),
             loginForm: (<LoginForm />),
+        })
+    }
+});
+
+FlowRouter.route("/register", {
+    name: "Register",
+    action() {
+        mount(RegisterLayout, {
+            navBar: (<NavBar />),
+            registerForm: (<RegisterForm />),
         })
     }
 });

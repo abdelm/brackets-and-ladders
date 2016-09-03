@@ -2,31 +2,30 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
-import { Accounts } from 'meteor/accounts-base';
 
 //Import Dependencies
 
 //Component: LoginForm - Login form for the login page
 
-export default class LoginForm extends React.Component{
+export default class RegisterForm extends React.Component{
     constructor(){
         super();
-        this.handleLogin = this.handleLogin.bind(this);
+        this.handleRegister = this.handleRegister.bind(this);
     }
-    
-    handleLogin(event){
-        //Find the values in elements ref which are specified        
-        const username = ReactDOM.findDOMNode(this.refs.username).value; 
-        const password = ReactDOM.findDOMNode(this.refs.password).value;
+
+    handleRegister(event){
         event.preventDefault();
-        //Invokes Meteor method to log in
-        Meteor.loginWithPassword(username, password,
+        //Find the values in elements ref which are specified
+        const username = ReactDOM.findDOMNode(this.refs.username).value;
+        const password = ReactDOM.findDOMNode(this.refs.password).value;
+        //Invoke meteor method to create account, accounts.create method is serverside and is called from there
+        Meteor.call('accounts.create', username, password,
                 (err) => {
                 if (err) {
-                    console.log('Login Failure.');
+                    console.log('Registration Failure.');
                     console.log(err);
                 } else {
-                    console.log('Login Success.');
+                    console.log('Registration Success.');
                     FlowRouter.go("/");
                 }
             }
@@ -36,7 +35,7 @@ export default class LoginForm extends React.Component{
     render(){
         return(
             <div>
-                <form className="ui form" onSubmit={this.handleLogin}>
+                <form className="ui form" onSubmit={this.handleRegister}>
                     <div className="field">
                         <label>Username</label>
                         <input name="username" placeholder="Username" type="text" ref="username" />
@@ -45,7 +44,7 @@ export default class LoginForm extends React.Component{
                         <label>Password</label>
                         <input name="password" placeholder="Password" type="password" ref="password" />
                     </div>
-                    <button className="ui button primary" type="submit">Login</button>
+                    <button className="ui button primary" type="submit">Sign Up</button>
                 </form>
             </div>
         )
