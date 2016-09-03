@@ -46,6 +46,10 @@ export default class RegisterForm extends React.Component{
                     </div>
                     <button className="ui button primary" type="submit">Sign Up</button>
                 </form>
+                <div class="ui yellow bottom attached warning message">
+                    <i class="icon help"></i>
+                    Already signed up? <a href="/login">Login here</a> instead.
+                </div>
             </div>
         )
     }
