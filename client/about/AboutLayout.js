@@ -12,7 +12,7 @@ export default class AboutLayout extends React.Component{
         return(
             <div>
                 <div>{this.props.navBar}</div>
-                <div>ABOUT STUFF HERE</div>
+                <div>{this.props.about}</div>
             </div>
         )
     }

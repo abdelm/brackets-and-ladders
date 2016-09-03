@@ -12,7 +12,6 @@ export default class HomeLayout extends React.Component{
         return(
             <div>
                 <div>{this.props.navBar}</div>
-                <h1>Hello!</h1>
                 <div>{this.props.home}</div>
             </div>
         )

@@ -14,6 +14,7 @@ import SignupLayout from './signup/SignupLayout';
 //Components
 import NavBar from './common/NavBar';
 import Home from './home/components/Home';
+import About from './about/components/About';
 import LoginForm from './login/components/LoginForm';
 import SignupForm from './signup/components/SignupForm';
 
@@ -58,6 +59,7 @@ FlowRouter.route("/about", {
     action() {
         mount(AboutLayout, {
             navBar: (<NavBar />),
+            about: (<About />),
         })
     }
 });
