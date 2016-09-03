@@ -12,13 +12,12 @@ export default class About extends React.Component{
         	<div className="ui raised very padded text container segment">
 				<div className="ui two column divided grid">
 					<div className="column">
-						<h1 className="ui header">About</h1>
-						<p>ABOUT SECTION IN HERE</p>
+						<h2 className="ui header">About</h2>
+						<p>Brackets and Ladders Prototype</p>
 						<p>SECOND PARAGRAPH OF ABOUT SECTION HERE </p>
 					</div>
-					<div className="eight right aligned column">
-						<h2>Team Members:</h2>
-						
+					<div className="right aligned column">
+						<h2>Team Members</h2>
 						<p>Sebastian Guillema <br />
 						Hayden Crain <br />
 						Abelrahman Ahmed <br />

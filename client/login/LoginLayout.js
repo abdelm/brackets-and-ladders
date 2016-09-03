@@ -12,9 +12,7 @@ export default class LoginLayout extends React.Component{
         return(
             <div>
                 <div>{this.props.navBar}</div>
-                <div className="ui raised padded text container segment">
-                    <div>{this.props.loginForm}</div>
-                </div>
+                <div>{this.props.loginForm}</div>
             </div>
         )
     }

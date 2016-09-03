@@ -12,9 +12,7 @@ export default class RegisterLayout extends React.Component{
         return(
             <div>
                 <div>{this.props.navBar}</div>
-                <div className="ui raised padded text container segment">
-                    <div>{this.props.registerForm}</div>
-                </div>
+                <div>{this.props.registerForm}</div>
             </div>
         )
     }

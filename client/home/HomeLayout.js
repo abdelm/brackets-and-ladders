@@ -1,6 +1,9 @@
 //Import Packages
 import React from 'react';
 
+//Import Dependencies
+import '../common/stylesheet.css';
+
 //Layout: Home - Layout for Home and its components
 
 

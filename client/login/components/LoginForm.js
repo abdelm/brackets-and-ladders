@@ -35,15 +35,19 @@ export default class LoginForm extends React.Component{
     
     render(){
         return(
-            <div>
-                <form className="ui form" onSubmit={this.handleLogin}>
+            <div className="ui raised padded text container segment">
+                <form className="ui large form" onSubmit={this.handleLogin}>
                     <div className="field">
-                        <label>Username</label>
-                        <input name="username" placeholder="Username" type="text" ref="username" />
+                        <div className="ui left icon input">
+                            <i className="user icon"></i>
+                            <input name="username" placeholder="Username" type="text" ref="username" />
+                        </div>
                     </div>
                     <div className="field">
-                        <label>Password</label>
-                        <input name="password" placeholder="Password" type="password" ref="password" />
+                        <div className="ui left icon input">
+                            <i className="lock icon"></i>
+                            <input name="password" placeholder="Password" type="password" ref="password" />
+                        </div>
                     </div>
                     <button className="ui button primary" type="submit">Login</button>
                 </form>
