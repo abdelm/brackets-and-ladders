@@ -10,6 +10,7 @@ import HomeLayout from './home/HomeLayout';
 import LoginLayout from './login/LoginLayout';
 import RegisterLayout from './register/RegisterLayout';
 import AboutLayout from './about/AboutLayout';
+import CreateTeamLayout from './tournaments/create-team/CreateTeamLayout';
 
 //Components
 import NavBar from './common/NavBar';
@@ -17,6 +18,7 @@ import Home from './home/components/Home';
 import About from './about/components/About';
 import LoginForm from './login/components/LoginForm';
 import RegisterForm from './register/components/RegisterForm';
+import CreateTeamForm from './tournaments/create-team/components/CreateTeamForm';
 
 /*
 
@@ -63,5 +65,15 @@ FlowRouter.route("/about", {
         })
     }
 });
+
+FlowRouter.route("/create-team", {
+    name: "Create Team",
+    action() {
+        mount(CreateTeamLayout, {
+            navBar: (<NavBar />),
+            createTeamForm: (<CreateTeamForm />),           
+        })
+    }
+})
 
 
