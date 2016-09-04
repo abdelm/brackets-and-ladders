@@ -95,6 +95,9 @@ export default class NavBar extends React.Component{
                         <a className="item" href="/create-team">
                             Create Team
                         </a>
+                        <a className="item" href="/view-teams">
+                            View Teams
+                        </a>
                     </div>
                 </a>
             )
