@@ -38,7 +38,7 @@ export default class NavBar extends React.Component{
     render(){
         //Checks if a user is logged in and changes account buttons on the nav bar
         let accountButtons;
-        if (!Meteor.user()){
+        if (!Meteor.userId()){
             accountButtons = (
                 <div className="right menu">
                     <div className="item">

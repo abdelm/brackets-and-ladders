@@ -5,6 +5,12 @@ import React from 'react';
 
 
 export default class LoginLayout extends React.Component{
+    componentDidMount(){
+        if (Meteor.userId()) {
+            FlowRouter.go("/");
+        }
+    }
+    
     render(){
         const title = "Login | Brackets and Ladders"
         DocHead.setTitle(title);

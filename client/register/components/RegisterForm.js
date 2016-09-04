@@ -19,19 +19,26 @@ export default class RegisterForm extends React.Component{
         //Find the values in elements ref which are specified
         const username = ReactDOM.findDOMNode(this.refs.username).value;
         const password = ReactDOM.findDOMNode(this.refs.password).value;
-        //Invoke meteor method to create account, accounts.create method is serverside and is called from there
-        Meteor.call('accounts.create', username, password,
-                (err) => {
-                if (err) {
-                    this.setState({error: err.reason});
-                    console.log('Registration Failure.');
-                    console.log(err);
-                } else {
-                    console.log('Registration Success.');
-                    FlowRouter.go("/");
+
+        passwordValidation = /^(?=.*\d)[0-9a-zA-Z]{8,}$/;
+
+        if (password.match(passwordValidation)) {
+            //Invoke meteor method to create account, accounts.create method is serverside and is called from there
+            Meteor.call('accounts.create', username, password,
+                    (err) => {
+                    if (err) {
+                        this.setState({error: err.reason});
+                        console.log('Registration Failure.');
+                        console.log(err);
+                    } else {
+                        console.log('Registration Success.');
+                        FlowRouter.go("/");
+                    }
                 }
-            }
-        );
+            );
+        } else {
+            this.setState({error: 'Password must contain 8 characters with at least one letter and one number.'});
+        }
     }
 
     render(){

@@ -5,6 +5,12 @@ import React from 'react';
 
 
 export default class RegisterLayout extends React.Component{
+    componentDidMount(){
+        if (Meteor.userId()) {
+            FlowRouter.go("/");
+        }
+    }
+    
     render(){
         const title = "Register | Brackets and Ladders"
         DocHead.setTitle(title);
