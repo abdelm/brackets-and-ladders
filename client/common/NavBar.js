@@ -36,6 +36,8 @@ export default class NavBar extends React.Component{
     }
 
     render(){
+        let user = Meteor.users.findOne({_id: Meteor.userId()});
+
         //Checks if a user is logged in and changes account buttons on the nav bar
         let accountButtons;
         if (!Meteor.userId()){
@@ -52,6 +54,15 @@ export default class NavBar extends React.Component{
         } else {
             accountButtons = (
                 <div className="right menu">
+                    <a className="ui simple dropdown item">
+                        <i className="user icon large"></i>
+                        <div className="text">Welcome, {user['username']}!</div>
+                        <div className="menu">
+                            <div className="item">Item 1</div>
+                            <div className="item">Item 2</div>
+                            <div className="item">Item 3</div>
+                        </div>
+                    </a>
                     <div className="item">
                         <a className="ui button" onClick={this.handleLogout}>Logout</a>
                     </div>
@@ -59,12 +70,52 @@ export default class NavBar extends React.Component{
             );
         };
 
+
+        let tournamentDropdown;
+        if (this.state.accountButtons === true || !Meteor.user()){
+            tournamentDropdown = (
+                <a className="ui simple dropdown item">
+                    <div className="text">Tournaments</div>
+                    <i className="dropdown icon"></i>
+                    <div className="menu">
+                        <div className="item" href="/tournaments/view">
+                            View Tournaments
+                        </div>
+                    </div>
+                </a>
+            )
+        } else {
+            tournamentDropdown = (
+                <a className="ui simple dropdown item">
+                    <div className="text">Tournaments</div>
+                    <i className="dropdown icon"></i>
+                    <div className="menu">
+                        <a className="item" href="/tournaments/view">
+                            View Tournaments
+                        </a>
+                        <a className="item" href="/create-team">
+                            Create Team
+                        </a>
+                        <a className="item" href="/view-teams">
+                            View Teams
+                        </a>
+                    </div>
+                </a>
+            )
+        }
+
+
+
         return(
             <div className="ui large top menu">
                 <div className="header item">Brackets and Ladders</div>
-                <a className="active item" href="/">Home</a>
-                <a className="item">Tournaments</a>
-                <a className="item" href="/about">About</a>
+                <a className="active item" href="/">
+                    Home
+                </a>
+                { tournamentDropdown }
+                <a className="item" href="/about">
+                    About
+                </a>
                 { accountButtons }
             </div>
         )

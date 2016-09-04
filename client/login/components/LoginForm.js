@@ -22,7 +22,7 @@ export default class LoginForm extends React.Component{
         event.preventDefault();
         //Invokes Meteor method to log in
         Meteor.loginWithPassword(username, password,
-                (err) => {
+            (err) => {
                 if (err) {
                     this.setState({error: true});
                     console.log('Login Failure.');
