@@ -35,6 +35,10 @@ export default class NavBar extends React.Component{
         this.toggleAccountButtons();
     }
 
+    findCurrentUser(){
+        //use this method to find users instead of using using an object in the render
+    }
+
     render(){
         let user = Meteor.users.findOne({_id: Meteor.userId()});
 
