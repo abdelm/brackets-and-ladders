@@ -35,6 +35,8 @@ export default class NavBar extends React.Component{
     }
 
     render(){
+        let user = Meteor.users.findOne({_id: Meteor.userId()});
+
         //Checks if a user is logged in and changes account buttons on the nav bar
         let accountButtons;
         if (this.state.accountButtons === true || !Meteor.user()){
@@ -53,7 +55,7 @@ export default class NavBar extends React.Component{
                 <div className="right menu">
                     <a className="ui simple dropdown item">
                         <i className="user icon large"></i>
-                        <div className="text">User</div>
+                        <div className="text">Welcome, {user['username']}!</div>
                         <div className="menu">
                             <div className="item">Item 1</div>
                             <div className="item">Item 2</div>
