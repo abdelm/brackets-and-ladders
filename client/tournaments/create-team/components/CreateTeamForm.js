@@ -3,23 +3,57 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 
-//Import Dependencies
+
 
 //Component: CreateTeamForm - Form used to create a team for tournaments
 
 export default class CreateTeamForm extends React.Component{
     constructor(){
         super()
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleSubmit(event){
         event.preventDefault();
-        //Capture 
+        //Capture values in fields
+        const name = ReactDOM.findDOMNode(this.refs.teamName).value;
         const leaderName = ReactDOM.findDOMNode(this.refs.teamLeader).value;
         const memberName2 = ReactDOM.findDOMNode(this.refs.teamMember2).value;
         const memberName3 = ReactDOM.findDOMNode(this.refs.teamMember3).value;
         const memberName4 = ReactDOM.findDOMNode(this.refs.teamMember4).value;
         const memberName5 = ReactDOM.findDOMNode(this.refs.teamMember5).value;
+        //Put player usernames into an array
+        const teamName = name;
+        const leaders = leaderName;
+        //const members = [leaderName, memberName2, memberName3, memberName4, memberName5];
+        const members = {
+                            leader: leaderName,
+                            member2: memberName2,
+                            member3: memberName3, 
+                            member4: memberName4,
+                            member5: memberName5      
+                        };  
+        Meteor.call('team_create', teamName, leaders, members,
+            (err) => {
+                if (err) {
+                    console.log('Failed to create Team.');
+                    console.log(err);
+                } else {
+                    console.log('Successfully created Team.');
+                }
+            }        
+        /*This is for when we implement validation
+        Meteor.call('team_create', }teamName, leaders, members},
+            (err) => {
+                if (err) {
+                    console.log('Failed to create Team.');
+                    console.log(err);
+                } else {
+                    console.log('Successfully created Team.');
+                }
+            }     
+        */
+        );
     }
 
     render(){

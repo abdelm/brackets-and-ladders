@@ -11,6 +11,7 @@ import LoginLayout from './login/LoginLayout';
 import RegisterLayout from './register/RegisterLayout';
 import AboutLayout from './about/AboutLayout';
 import CreateTeamLayout from './tournaments/create-team/CreateTeamLayout';
+import ViewTeamLayout from './tournaments/view-teams/ViewTeamLayout';
 
 //Components
 import NavBar from './common/NavBar';
@@ -19,6 +20,9 @@ import About from './about/components/About';
 import LoginForm from './login/components/LoginForm';
 import RegisterForm from './register/components/RegisterForm';
 import CreateTeamForm from './tournaments/create-team/components/CreateTeamForm';
+
+//Containers
+import ViewTeamContainer from './tournaments/view-teams/ViewTeamContainer';
 
 /*
 
@@ -74,6 +78,16 @@ FlowRouter.route("/create-team", {
             createTeamForm: (<CreateTeamForm />),           
         })
     }
-})
+});
+
+FlowRouter.route("/view-teams", {
+    name: "View Teams",
+    action() {
+        mount(ViewTeamLayout, {
+            navBar: (<NavBar />),
+            container: (<ViewTeamContainer />),           
+        })
+    }
+});
 
 

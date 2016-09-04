@@ -20,7 +20,7 @@ export default class RegisterForm extends React.Component{
         const password = ReactDOM.findDOMNode(this.refs.password).value;
         //Invoke meteor method to create account, accounts.create method is serverside and is called from there
         Meteor.call('accounts.create', username, password,
-                (err) => {
+            (err) => {
                 if (err) {
                     console.log('Registration Failure.');
                     console.log(err);

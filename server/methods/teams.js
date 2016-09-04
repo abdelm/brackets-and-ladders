@@ -1,39 +1,47 @@
 //Import Packages
 import { Meteor } from 'meteor/meteor';
-import { Mongo } from 'meteor/mongo';
+import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+import { ValidatedMethod } from 'meteor/mdg:validated-method';
 
-//Team collection schema
-Teams = new Mongo.Collection("teams");
+//Import Collection
+import Teams from '../../client-server/collections/teamsCollection';
 
-TeamMember = new SimpleSchema({
-    memberUsername: {
-        type: String,
-        label: "Team member username",
-        max: 20,
-    },
-});
 
-Team = new SimpleSchema({
-    name: {
-        type: String,
-        label: "Team Name",
-        max: 20,
-    },
-    leader: {
-        label: "Leader username",
-        type: String,
-    },
-    members: {
-        type: [TeamMember],
-        minCount: 5,
-    },
-    creationDate: {
-        type: Date,
-    },
-});
-
-Teams.schema = new SimpleSchema({
-    team: {
-        type: [Team],
+//Methods for teams 
+/*export const createTeam = new ValidatedMethod({
+    name: "team_create",
+    validate: new  SimpleSchema({
+        teamName: { type: String },
+        leaders: { type: Object, minCount: 1 },
+        members: { type: Object, minCount: 5 }
+    }).validator(),
+    run({ teamName, leaders, members }) {
+        if (error) {
+            return error
+        } else {
+            let insertTeam = Teams.insert({
+                teamName: teamName,
+                leaders: leaders,
+                members: members,
+                dateCreated: new Date()
+            });
+            console.log(insertTeam);
+            return insertTeam
+        }
     }
+});*/
+
+Meteor.methods({
+
+    "team_create"(teamName, leaders, members) {
+        let insertTeam = Teams.insert({
+            teamName: teamName,
+            leaders: leaders,
+            members: members,
+            dateCreated: new Date()
+        });
+        console.log(insertTeam);
+        return insertTeam   
+    }
+
 });

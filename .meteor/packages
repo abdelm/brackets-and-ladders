@@ -27,3 +27,5 @@ kadira:dochead
 accounts-password
 useraccounts:semantic-ui
 aldeed:simple-schema
+mdg:validated-method
+react-meteor-data
