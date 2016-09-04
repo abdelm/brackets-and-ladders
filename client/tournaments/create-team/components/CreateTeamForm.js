@@ -9,7 +9,8 @@ import { Meteor } from 'meteor/meteor';
 
 export default class CreateTeamForm extends React.Component{
     constructor(){
-        super()
+        super();
+        this.state = {error: false};
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -29,36 +30,43 @@ export default class CreateTeamForm extends React.Component{
         const members = {
                             leader: leaderName,
                             member2: memberName2,
-                            member3: memberName3, 
+                            member3: memberName3,
                             member4: memberName4,
-                            member5: memberName5      
-                        };  
-        Meteor.call('team_create', teamName, leaders, members,
-            (err) => {
-                if (err) {
-                    console.log('Failed to create Team.');
-                    console.log(err);
-                } else {
-                    console.log('Successfully created Team.');
+                            member5: memberName5
+                        };
+
+        if (name !== '' && leaderName !== '' && memberName2 !== '' &&
+            memberName3 !== '' && memberName4 !== '' && memberName5 !== '') {
+            Meteor.call('team_create', teamName, leaders, members,
+                (err) => {
+                    if (err) {
+                        console.log('Failed to create Team.');
+                        this.setState({error: err.reason});
+                        console.log(err);
+                    } else {
+                        console.log('Successfully created Team.');
+                        FlowRouter.go("/view-teams");
+                    }
                 }
-            }        
-        /*This is for when we implement validation
-        Meteor.call('team_create', }teamName, leaders, members},
-            (err) => {
-                if (err) {
-                    console.log('Failed to create Team.');
-                    console.log(err);
-                } else {
-                    console.log('Successfully created Team.');
-                }
-            }     
-        */
-        );
+            );
+        } else {
+            this.setState({error: 'Team Name and Team Members cannot be empty. Please try again.'});
+        }
     }
 
     render(){
+        let errorMessage;
+        if (this.state.error !== false){
+            errorMessage = (
+                <div className="ui top attached error message">
+                    <i className="icon warning"></i>
+                    {this.state.error}
+                </div>
+            )
+        }
         return(
             <div>
+                {errorMessage}
                 <form className="ui form" onSubmit={this.handleSubmit}>
                     <div className="field">
                         <label>Team Name</label>
