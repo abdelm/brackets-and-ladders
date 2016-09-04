@@ -28,6 +28,7 @@ export default class NavBar extends React.Component{
                     console.log(err);
                 } else {
                     console.log('Logout Success.');
+                    FlowRouter.go("/login");
                 }
             }
         );
@@ -37,7 +38,7 @@ export default class NavBar extends React.Component{
     render(){
         //Checks if a user is logged in and changes account buttons on the nav bar
         let accountButtons;
-        if (this.state.accountButtons === true || !Meteor.user()){
+        if (!Meteor.user()){
             accountButtons = (
                 <div className="right menu">
                     <div className="item">
