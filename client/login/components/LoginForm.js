@@ -12,17 +12,19 @@ export default class LoginForm extends React.Component{
     constructor(){
         super();
         this.handleLogin = this.handleLogin.bind(this);
+        this.state = {error: false};
     }
-    
-    handleLogin(event){
-        //Find the values in elements ref which are specified        
-        const username = ReactDOM.findDOMNode(this.refs.username).value; 
+
+    handleLogin(event) {
+        //Find the values in elements ref which are specified
+        const username = ReactDOM.findDOMNode(this.refs.username).value;
         const password = ReactDOM.findDOMNode(this.refs.password).value;
         event.preventDefault();
         //Invokes Meteor method to log in
         Meteor.loginWithPassword(username, password,
                 (err) => {
                 if (err) {
+                    this.setState({error: true});
                     console.log('Login Failure.');
                     console.log(err);
                 } else {
@@ -32,10 +34,20 @@ export default class LoginForm extends React.Component{
             }
         );
     }
-    
+
     render(){
+        let errorMessage;
+        if (this.state.error !== false){
+            errorMessage = (
+                <div className="ui top attached error message">
+                    <i className="icon warning"></i>
+                    Incorrect username or password. Please try again.
+                </div>
+            )
+        }
         return(
             <div className="ui raised padded text container segment">
+                {errorMessage}
                 <form className="ui large form" onSubmit={this.handleLogin}>
                     <div className="field">
                         <div className="ui left icon input">

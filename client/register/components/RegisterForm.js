@@ -11,6 +11,7 @@ export default class RegisterForm extends React.Component{
     constructor(){
         super();
         this.handleRegister = this.handleRegister.bind(this);
+        this.state = {error: false};
     }
 
     handleRegister(event){
@@ -22,6 +23,7 @@ export default class RegisterForm extends React.Component{
         Meteor.call('accounts.create', username, password,
                 (err) => {
                 if (err) {
+                    this.setState({error: err.reason});
                     console.log('Registration Failure.');
                     console.log(err);
                 } else {
@@ -31,10 +33,20 @@ export default class RegisterForm extends React.Component{
             }
         );
     }
-    
+
     render(){
+        let errorMessage;
+        if (this.state.error !== false){
+            errorMessage = (
+                <div className="ui top attached error message">
+                    <i className="icon warning"></i>
+                    {this.state.error}
+                </div>
+            )
+        }
         return(
             <div className="ui raised padded text container segment">
+                {errorMessage}
                 <form className="ui large form" onSubmit={this.handleRegister}>
                     <div className="field">
                         <div className="ui left icon input">
