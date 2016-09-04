@@ -21,7 +21,7 @@ git clone https://github.com/sguillema/brackets-and-ladders.git
 
 **3.** Install necessary NPM packages
 ```
-npm install
+meteor npm install
 ```
 
 **4.** Run
