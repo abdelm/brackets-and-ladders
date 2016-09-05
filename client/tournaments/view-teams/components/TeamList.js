@@ -39,7 +39,7 @@ export default class TeamList extends React.Component{
 
     render(){
         return(
-            <div>
+            <div className="ui cards grid">
                 {this.renderTeams()}
             </div>
         )

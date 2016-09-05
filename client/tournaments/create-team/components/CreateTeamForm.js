@@ -23,10 +23,9 @@ export default class CreateTeamForm extends React.Component{
         const memberName3 = ReactDOM.findDOMNode(this.refs.teamMember3).value;
         const memberName4 = ReactDOM.findDOMNode(this.refs.teamMember4).value;
         const memberName5 = ReactDOM.findDOMNode(this.refs.teamMember5).value;
-        //Put player usernames into an array
+        //Put player usernames into an object
         const teamName = name;
         const leaders = leaderName;
-        //const members = [leaderName, memberName2, memberName3, memberName4, memberName5];
         const members = {
                             leader: leaderName,
                             member2: memberName2,
@@ -54,6 +53,12 @@ export default class CreateTeamForm extends React.Component{
         }
     }
 
+    //Need to create a container for pub and sub
+    currentUser(){
+        let username = Meteor.users.findOne({_id: Meteor.userId()});
+        return username.username;
+    }
+
     render(){
         let errorMessage;
         if (this.state.error !== false){
@@ -74,8 +79,9 @@ export default class CreateTeamForm extends React.Component{
                     </div>
                     <div className="field">
                         <label>Team Members</label>
-                        <div className="field">
-                            <input name="teamLeader" placeholder="THIS IS MEANT TO BE YOUR USERNAME!" type="text" ref="teamLeader" />
+                        <div className="ui input labeled field">
+                            <div className="ui label">Team Leader (you)</div>
+                            <input name="teamLeader" placeholder="Team Member Username" type="text" ref="teamLeader" /*Login bug, comment when working*/value={this.currentUser()} disabled="true" />
                         </div>
                         <div className="field">
                             <input name="teamMember2" placeholder="Team Member Username" type="text" ref="teamMember2" />
