@@ -119,19 +119,19 @@ export default class NavBar extends React.Component{
             )
         }
 
-
-
         return(
-            <div className="ui large top menu">
-                <div className="header item">Brackets and Ladders</div>
-                <a className="item" href="/">
-                    Home
-                </a>
-                { tournamentDropdown }
-                <a className="item" href="/about">
-                    About
-                </a>
-                { accountButtons }
+            <div>
+                <div className="ui large top menu">
+                    <div className="header item">Brackets and Ladders</div>
+                    <a className="item" href="/">
+                        Home
+                    </a>
+                    { tournamentDropdown }
+                    <a className="item" href="/about">
+                        About
+                    </a>
+                    { accountButtons }
+                </div>
             </div>
         )
     }
