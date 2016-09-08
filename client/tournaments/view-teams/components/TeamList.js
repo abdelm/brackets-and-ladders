@@ -21,11 +21,7 @@ export default class TeamList extends React.Component{
                         key={team._id}
                         teamName={team.teamName}
                         leaders={team.leaders}
-                        leader={team.members.leader}
-                        member2={team.members.member2}
-                        member3={team.members.member3}
-                        member4={team.members.member4}
-                        member5={team.members.member5}
+                        members={team.members}
                         dateCreated={team.dateCreated}
                     />
                 )

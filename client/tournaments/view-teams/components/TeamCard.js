@@ -32,11 +32,7 @@ export default class TeamCard extends React.Component{
                         </div>
                         <div className="content">
                             <div className="ui list transition hidden">
-                                <div className="item">{this.props.leader.toString()}</div>
-                                <div className="item">{this.props.member2.toString()}</div>
-                                <div className="item">{this.props.member3.toString()}</div>
-                                <div className="item">{this.props.member4.toString()}</div>
-                                <div className="item">{this.props.member5.toString()}</div>
+                                <div className="item">{this.props.members.toString()}</div>
                             </div>
                         </div>
                     </div>

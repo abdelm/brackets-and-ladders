@@ -8,40 +8,19 @@ import Teams from '../../client-server/collections/teamsCollection';
 
 
 //Methods for teams 
-/*export const createTeam = new ValidatedMethod({
+const createTeam = new ValidatedMethod({
     name: "team_create",
     validate: new  SimpleSchema({
         teamName: { type: String },
-        leaders: { type: Object, minCount: 1 },
-        members: { type: Object, minCount: 5 }
+        leaders: { type: [String] },
+        members: { type: [String] }
     }).validator(),
-    run({ teamName, leaders, members }) {
-        if (error) {
-            return error
-        } else {
-            let insertTeam = Teams.insert({
-                teamName: teamName,
-                leaders: leaders,
-                members: members,
-                dateCreated: new Date()
-            });
-            console.log(insertTeam);
-            return insertTeam
-        }
-    }
-});*/
-
-Meteor.methods({
-
-    "team_create"(teamName, leaders, members) {
+    run({teamName, leaders, members}) {
         let insertTeam = Teams.insert({
             teamName: teamName,
             leaders: leaders,
             members: members,
             dateCreated: new Date()
         });
-        console.log(insertTeam);
-        return insertTeam   
     }
-
 });

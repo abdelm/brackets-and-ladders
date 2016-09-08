@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 
-
+//Import Depdendencies
 
 //Component: CreateTeamForm - Form used to create a team for tournaments
 
@@ -18,30 +18,32 @@ export default class CreateTeamForm extends React.Component{
         event.preventDefault();
         //Capture values in fields
         const name = ReactDOM.findDOMNode(this.refs.teamName).value;
-        const leaderName = ReactDOM.findDOMNode(this.refs.teamLeader).value;
+        const memberName1 = ReactDOM.findDOMNode(this.refs.teamMember1).value;
         const memberName2 = ReactDOM.findDOMNode(this.refs.teamMember2).value;
         const memberName3 = ReactDOM.findDOMNode(this.refs.teamMember3).value;
         const memberName4 = ReactDOM.findDOMNode(this.refs.teamMember4).value;
         const memberName5 = ReactDOM.findDOMNode(this.refs.teamMember5).value;
         //Put player usernames into an object
         const teamName = name;
-        const leaders = leaderName;
-        const members = {
-                            leader: leaderName,
-                            member2: memberName2,
-                            member3: memberName3,
-                            member4: memberName4,
-                            member5: memberName5
-                        };
+        console.log(teamName);
+        const leaders = [memberName1];
+        const members = [memberName1, memberName2, memberName3, memberName4, memberName5];
+        const team = {
+            "teamName" : teamName,
+            "leaders" : leaders,
+            "members" : members
+        }
+        console.log(team);
 
-        if (name !== '' && leaderName !== '' && memberName2 !== '' &&
+        if (name !== '' && memberName1 !== '' && memberName2 !== '' &&
             memberName3 !== '' && memberName4 !== '' && memberName5 !== '') {
-            Meteor.call('team_create', teamName, leaders, members,
+            Meteor.call('team_create', team,
                 (err) => {
                     if (err) {
                         console.log('Failed to create Team.');
                         this.setState({error: err.reason});
                         console.log(err);
+                        //console.log(team);
                     } else {
                         console.log('Successfully created Team.');
                         FlowRouter.go("/view-teams");
@@ -81,7 +83,7 @@ export default class CreateTeamForm extends React.Component{
                         <label>Team Members</label>
                         <div className="ui input labeled field">
                             <div className="ui label">Team Leader (you)</div>
-                            <input name="teamLeader" placeholder="Team Member Username" type="text" ref="teamLeader" /*Login bug, comment when working*/value={this.currentUser()} disabled="true" />
+                            <input name="teamMember1" placeholder="Team Member Username" type="text" ref="teamMember1" /*Login bug, comment when working*/value={this.currentUser()} disabled="true" />
                         </div>
                         <div className="field">
                             <input name="teamMember2" placeholder="Team Member Username" type="text" ref="teamMember2" />
