@@ -9,6 +9,7 @@ import { Meteor } from 'meteor/meteor';
 //Page: Home - Landing page of site
 export default class Home extends React.Component{
     render(){
+        //CSS styles using React
         let mastheadStyle = {
             boxShadow: '0em 50em rgba(0, 0, 0, 0.7) inset',
             background: 'url(/images/masthead.jpg)',

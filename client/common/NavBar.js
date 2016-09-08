@@ -52,6 +52,12 @@ export default class NavBar extends React.Component{
     }
 
     render(){
+        //CSS Styles using React
+        let navBarStyle = {
+            background: '#212121',
+            borderRadius: "0px",
+        }
+
         //Checks if a user is logged in and changes account buttons on the nav bar
         let accountButtons;
         this.findCurrentUser();
@@ -121,7 +127,7 @@ export default class NavBar extends React.Component{
 
         return(
             <div>
-                <div className="ui large top menu">
+                <div style={navBarStyle} className="ui large top menu inverted">
                     <div className="header item">Brackets and Ladders</div>
                     <a className="item" href="/">
                         Home
