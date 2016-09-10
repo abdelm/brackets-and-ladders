@@ -23,6 +23,7 @@ export default class TeamList extends React.Component{
                         leaders={team.leaders}
                         members={team.members}
                         dateCreated={team.dateCreated}
+                        applicantId={this.props.currentUser}
                     />
                 )
             });

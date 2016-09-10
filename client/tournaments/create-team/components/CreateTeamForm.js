@@ -43,7 +43,6 @@ export default class CreateTeamForm extends React.Component{
                         console.log('Failed to create Team.');
                         this.setState({error: err.reason});
                         console.log(err);
-                        //console.log(team);
                     } else {
                         console.log('Successfully created Team.');
                         FlowRouter.go("/view-teams");

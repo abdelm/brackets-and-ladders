@@ -12,7 +12,7 @@ export default ViewTeamContainer = createContainer(() => {
     Meteor.subscribe('teams');
 
     //For when we want to implement a view of what teams a player is a part of
-    //const currentUser = Meteor.userId();
+    const currentUser = Meteor.userId();
     
     const teamsResult = Teams.find(
         //Same as previous comment
@@ -21,7 +21,7 @@ export default ViewTeamContainer = createContainer(() => {
     ).fetch();
 
     return {
-        //currentUser,
+        currentUser,
         teamsResult
     };
 

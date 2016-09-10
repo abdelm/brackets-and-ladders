@@ -3,17 +3,95 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 
+//Import Dependencies
+import PlayerApplications from '/client-server/collections/playerAppCollection';
+
 //Component: Team Card - Card that displays team information
 export default class TeamCard extends React.Component{
     constructor(){
         super();
+        this.state = {
+            buttonUsed : false,
+        }
+        this.toggleButton = this.toggleButton.bind(this);
+        this.handleApplication = this.handleApplication.bind(this);
     }
 
     componentDidMount(){
         $('.ui.accordion').accordion();
     }
+
+    toggleButton(){
+        this.setState({buttonUsed: !this.state.buttonUsed})
+    }
+
+    handleApplication(event){
+        event.preventDefault();
+        const applicantId = this.props.applicantId;
+        let user = Meteor.users.findOne({_id: applicantId});
+        let username = user.username;
+        const teamName = this.props.teamName;
+        let playerApplication = {
+            "teamName" : teamName,
+            "username" : username,
+            "applicantId" : applicantId
+        }
+
+        Meteor.call('player_application_create', playerApplication,
+            (err) => {
+                if (err) {
+                    console.log('Failed to apply for ' + teamName);
+                    this.setState({error: err.reason});
+                    console.log(err);
+                } else {
+                    console.log('Successfully applied for ' + teamName);
+                    FlowRouter.go("/view-teams");
+                }
+            }
+        )
+
+        toggleButton();
+    }
     
     render(){
+        //Checks if player is already a part of the team or if they already have sent an application
+        let members = this.props.members;
+        let user = Meteor.users.findOne({_id: this.props.applicantId});
+        let username = user.username;
+        const teamName = this.props.teamName;
+        let existingMember, existingApplicant = false;
+        let applicationButton;
+
+        //for each loop in members and check if any member usernames match current username
+        members.map((member) => {
+            if (member == username){
+                existingMember = true;
+            }
+        })
+
+        //search collection for application with same userID and teamName
+        //This process doesn't work as intended, needs fixing.
+        if (PlayerApplications.find({_id: Meteor.userId(), teamName: teamName}).fetch() == !null){
+            existingApplicant = true;
+        }
+
+        //Console line, delete when 100% working.
+        console.log(existingMember, existingApplicant);
+
+        if (existingMember == true){
+            applicationButton = (
+                <button className="ui column middle aligned button" disabled="true">You're already a member of this team</button>
+            )
+        } else if (existingApplicant == true){
+            applicationButton = (
+                <button className="ui column middle aligned button" disabled="true">You have a pending application for this team</button>
+            )
+        } else {
+            applicationButton = (
+                <button className="ui column middle aligned button" onClick={this.handleApplication}>Apply to Join</button>
+            )
+        }
+
         return(
             <div className="card four wide column">
                 <div className="content">
@@ -38,7 +116,7 @@ export default class TeamCard extends React.Component{
                     </div>
                 </div>
                 <div className="ui content grid">
-                    <button className="ui column middle aligned button">Apply to Join</button>
+                    {applicationButton}
                 </div>
             </div>
         )
