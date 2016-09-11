@@ -4,7 +4,7 @@ import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 
 //Import Collection
-import PlayerApplications from '../../client-server/collections/playerAppCollection';
+import PlayerApplications from '../../client-server/collections/playerAppsCollection';
 
 
 //Methods for teams 
@@ -20,7 +20,8 @@ const createPlayerApplication = new ValidatedMethod({
             teamName: teamName,
             username: username,
             applicantId: applicantId,
-            dateCreated: new Date()
+            dateCreated: new Date(),
+            status: "Pending"
         });
     }
 });

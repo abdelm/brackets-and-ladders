@@ -3,9 +3,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 
-//Import Dependencies
-import PlayerApplications from '/client-server/collections/playerAppCollection';
-
 //Component: Team Card - Card that displays team information
 export default class TeamCard extends React.Component{
     constructor(){
@@ -56,9 +53,10 @@ export default class TeamCard extends React.Component{
     render(){
         //Checks if player is already a part of the team or if they already have sent an application
         let members = this.props.members;
+        let teamName = this.props.teamName;
+        let playerApplications = this.props.playerApplications;
         let user = Meteor.users.findOne({_id: this.props.applicantId});
         let username = user.username;
-        const teamName = this.props.teamName;
         let existingMember, existingApplicant = false;
         let applicationButton;
 
@@ -67,13 +65,15 @@ export default class TeamCard extends React.Component{
             if (member == username){
                 existingMember = true;
             }
-        })
+        });
 
         //search collection for application with same userID and teamName
         //This process doesn't work as intended, needs fixing.
-        if (PlayerApplications.find({_id: Meteor.userId(), teamName: teamName}).fetch() == !null){
-            existingApplicant = true;
-        }
+        playerApplications.map((playerApplication) => {
+            if (playerApplication.username == username && playerApplication.teamName == teamName){
+                existingApplicant = true;
+            }
+        })
 
         //Console line, delete when 100% working.
         console.log(existingMember, existingApplicant);

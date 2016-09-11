@@ -24,6 +24,7 @@ export default class TeamList extends React.Component{
                         members={team.members}
                         dateCreated={team.dateCreated}
                         applicantId={this.props.currentUser}
+                        playerApplications={this.props.playerAppsResult}
                     />
                 )
             });
