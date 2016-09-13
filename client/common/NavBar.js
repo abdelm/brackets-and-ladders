@@ -97,9 +97,8 @@ export default class NavBar extends React.Component{
                         <i className="user icon large"></i>
                         <div className="text">Welcome, {this.username}!</div>
                         <div className="menu">
-                            <div className="item">Item 1</div>
-                            <div className="item">Item 2</div>
-                            <div className="item">Item 3</div>
+                            <a className="item" href="/user/manage-teams">Manage Teams</a>
+                            <a className="item" href="/user">Settings</a>
                         </div>
                     </a>
                     <div className="item">
@@ -114,7 +113,7 @@ export default class NavBar extends React.Component{
         if (this.state.accountButtons === true || !Meteor.userId()){
             tournamentDropdown = (
                 <div className="ui simple dropdown item">
-                    <div className="text">Tournaments</div>
+                    Tournaments
                     <i className="dropdown icon"></i>
                     <div className="menu">
                         <a className="item" href="/tournaments/view">
@@ -126,7 +125,7 @@ export default class NavBar extends React.Component{
         } else {
             tournamentDropdown = (
                 <div className="ui simple dropdown item">
-                    <div className="text">Tournaments</div>
+                    Tournaments
                     <i className="dropdown icon"></i>
                     <div className="menu">
                         <a className="item" href="/tournaments/view">

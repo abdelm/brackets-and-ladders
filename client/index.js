@@ -93,4 +93,25 @@ FlowRouter.route("/view-teams", {
     }
 });
 
+//User Routes
+let userRoutes = FlowRouter.group({
+    prefix: "/user",
+    name: "User"
+    //create a trigger to redirect if not logged in
+})
+
+userRoutes.route("/", {
+    name: "User Settings",
+    action() {
+        //mount user settings layout
+    }
+})
+
+userRoutes.route("/manage-teams", {
+    name: "Manage Teams",
+    action( {
+        //mount manage teams layout
+    })
+})
+
 
