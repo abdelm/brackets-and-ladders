@@ -13,7 +13,7 @@ export default class CreateTeamLayout extends React.Component{
             <div>
                 <div>{this.props.navBar}</div>
                 <div className="ui raised padded text container segment">
-                    <div>{this.props.createTeamForm}</div>
+                    <div>{this.props.container}</div>
                 </div>
             </div>
         )

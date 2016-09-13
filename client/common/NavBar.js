@@ -12,19 +12,28 @@ export default class NavBar extends React.Component{
         super()
         this.state = {
             accountButtons: false,
+            username: "",
         };
         this.handleLogout = this.handleLogout.bind(this);
-
-        let user = Meteor.users.findOne({_id: Meteor.userId()});
-        if (typeof user == 'undefined') {
-            this.username = 'User';
-        } else {
-            this.username = user['username'];
-        }
+        this.updateUsername = this.updateUsername.bind(this);
     }
 
     componentDidMount(){
-        Meteor.subscribe('users');
+        Tracker.autorun(() => {
+            let user = Meteor.users.findOne({_id: Meteor.userId()});
+            if (typeof user == 'undefined') {
+                this.username = 'User';
+            } else {
+                this.username = user.username;
+                this.updateUsername(this.username);
+            }
+            //Check if username changes
+            //console.log(this.username);
+        });
+    }
+
+    updateUsername(userUsername){
+        this.setState({username: userUsername});
     }
 
     toggleAccountButtons(){
@@ -69,6 +78,15 @@ export default class NavBar extends React.Component{
                     </div>
                     <div className="item">
                         <a className="ui primary button" href="/register">Sign up</a>
+                    </div>
+                </div>
+            );
+        } else if (this.state.username == "" || this.state.username == "User"){
+            accountButtons = (
+                <div className="right menu">
+                    <div className="ui text centered inline loader item">Loading</div>
+                    <div className="item">
+                        <a className="ui button" onClick={this.handleLogout}>Logout</a>
                     </div>
                 </div>
             );

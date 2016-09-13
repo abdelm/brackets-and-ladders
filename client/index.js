@@ -23,12 +23,15 @@ import CreateTeamForm from './tournaments/create-team/components/CreateTeamForm'
 
 //Containers
 import ViewTeamContainer from './tournaments/view-teams/ViewTeamContainer';
+import CreateTeamContainer from './tournaments/create-team/CreateTeamContainer';
 
 /*
 
 This is the main routing file, all routes are placed in here
 
 */
+
+//Routes
 
 FlowRouter.route("/", {
     name: "Home",
@@ -75,7 +78,7 @@ FlowRouter.route("/create-team", {
     action() {
         mount(CreateTeamLayout, {
             navBar: (<NavBar />),
-            createTeamForm: (<CreateTeamForm />),           
+            container: (<CreateTeamContainer />),           
         })
     }
 });

@@ -75,9 +75,6 @@ export default class TeamCard extends React.Component{
             }
         })
 
-        //Console line, delete when 100% working.
-        console.log(existingMember, existingApplicant);
-
         if (existingMember == true){
             applicationButton = (
                 <button className="ui column middle aligned button" disabled="true">You're already a member of this team</button>
@@ -88,7 +85,7 @@ export default class TeamCard extends React.Component{
             )
         } else {
             applicationButton = (
-                <button className="ui column middle aligned button" onClick={this.handleApplication}>Apply to Join</button>
+                <button className="ui column middle aligned primary button" onClick={this.handleApplication}>Apply to Join</button>
             )
         }
 

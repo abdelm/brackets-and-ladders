@@ -10,9 +10,29 @@ import { Meteor } from 'meteor/meteor';
 export default class CreateTeamForm extends React.Component{
     constructor(){
         super();
-        this.state = {error: false};
+        this.state = {
+            error: false,
+            username: "",
+        };
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.updateUsername = this.updateUsername.bind(this);
     }
+
+    componentDidMount(){
+        Tracker.autorun(() => {
+            let user = Meteor.users.findOne({_id: this.props.currentUserId});
+            if (typeof user == 'undefined') {
+                this.username = 'User';
+            } else {
+                this.username = user.username;
+                this.updateUsername(this.username);
+            }
+        });
+    }
+
+    updateUsername(userUsername){
+        this.setState({username: userUsername});
+    }    
 
     handleSubmit(event){
         event.preventDefault();
@@ -54,20 +74,25 @@ export default class CreateTeamForm extends React.Component{
         }
     }
 
-    //Need to create a container for pub and sub
-    currentUser(){
-        let username = Meteor.users.findOne({_id: Meteor.userId()});
-        return username.username;
-    }
-
     render(){
         let errorMessage;
+
         if (this.state.error !== false){
             errorMessage = (
                 <div className="ui top attached error message">
                     <i className="icon warning"></i>
                     {this.state.error}
                 </div>
+            )
+        }
+
+        if(this.state.username == "" || this.state.username == "User"){
+            autofill = (
+                <div className="ui active centered inline loader"></div>
+            );
+        } else {
+            autofill = (
+                <input name="teamMember1" placeholder="Team Member Username" type="text" ref="teamMember1" value={this.username} disabled="true" />
             )
         }
         return(
@@ -82,7 +107,7 @@ export default class CreateTeamForm extends React.Component{
                         <label>Team Members</label>
                         <div className="ui input labeled field">
                             <div className="ui label">Team Leader (you)</div>
-                            <input name="teamMember1" placeholder="Team Member Username" type="text" ref="teamMember1" /*Login bug, comment when working*/value={this.currentUser()} disabled="true" />
+                            {autofill}
                         </div>
                         <div className="field">
                             <input name="teamMember2" placeholder="Team Member Username" type="text" ref="teamMember2" />
