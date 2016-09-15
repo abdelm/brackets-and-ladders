@@ -56,20 +56,15 @@ export default class NavBar extends React.Component{
         this.toggleAccountButtons();
     }
 
-    findCurrentUser(){
-        //use this method to find users instead of using using an object in the render
-    }
-
     render(){
         //CSS Styles using React
         let navBarStyle = {
-            background: '#212121',
+            background: 'White',
             borderRadius: "0px",
         }
 
         //Checks if a user is logged in and changes account buttons on the nav bar
         let accountButtons;
-        this.findCurrentUser();
         if (!Meteor.userId()){
             accountButtons = (
                 <div className="right menu">
@@ -93,14 +88,14 @@ export default class NavBar extends React.Component{
         } else {
             accountButtons = (
                 <div className="right menu">
-                    <a className="ui simple dropdown item">
+                    <div className="ui simple dropdown item">
                         <i className="user icon large"></i>
                         <div className="text">Welcome, {this.username}!</div>
                         <div className="menu">
                             <a className="item" href="/user/manage-teams">Manage Teams</a>
                             <a className="item" href="/user">Settings</a>
                         </div>
-                    </a>
+                    </div>
                     <div className="item">
                         <a className="ui button" onClick={this.handleLogout}>Logout</a>
                     </div>
@@ -144,11 +139,8 @@ export default class NavBar extends React.Component{
 
         return(
             <div>
-                <div style={navBarStyle} className="ui large top menu inverted">
-                    <div className="header item">Brackets and Ladders</div>
-                    <a className="item" href="/">
-                        Home
-                    </a>
+                <div style={navBarStyle} className="ui large top menu">
+                    <a className="header item" href="/">Brackets and Ladders</a>
                     { tournamentDropdown }
                     <a className="item" href="/about">
                         About

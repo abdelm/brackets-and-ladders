@@ -68,7 +68,6 @@ export default class TeamCard extends React.Component{
         });
 
         //search collection for application with same userID and teamName
-        //This process doesn't work as intended, needs fixing.
         playerApplications.map((playerApplication) => {
             if (playerApplication.username == username && playerApplication.teamName == teamName){
                 existingApplicant = true;

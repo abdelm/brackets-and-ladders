@@ -12,6 +12,7 @@ import RegisterLayout from './register/RegisterLayout';
 import AboutLayout from './about/AboutLayout';
 import CreateTeamLayout from './tournaments/create-team/CreateTeamLayout';
 import ViewTeamLayout from './tournaments/view-teams/ViewTeamLayout';
+import ManageTeamsLayout from './user/manage-teams/ManageTeamsLayout';
 
 //Components
 import NavBar from './common/NavBar';
@@ -24,6 +25,8 @@ import CreateTeamForm from './tournaments/create-team/components/CreateTeamForm'
 //Containers
 import ViewTeamContainer from './tournaments/view-teams/ViewTeamContainer';
 import CreateTeamContainer from './tournaments/create-team/CreateTeamContainer';
+import ManageTeamsContainer from './user/manage-teams/ManageTeamsContainer';
+
 
 /*
 
@@ -98,20 +101,23 @@ let userRoutes = FlowRouter.group({
     prefix: "/user",
     name: "User"
     //create a trigger to redirect if not logged in
-})
+});
 
 userRoutes.route("/", {
     name: "User Settings",
     action() {
         //mount user settings layout
     }
-})
+});
 
 userRoutes.route("/manage-teams", {
     name: "Manage Teams",
-    action( {
-        //mount manage teams layout
-    })
-})
+    action() {
+        mount(ManageTeamsLayout, {
+            navBar: (<NavBar />),
+            container: (<ManageTeamsContainer />),
+        })
+    }
+});
 
 
