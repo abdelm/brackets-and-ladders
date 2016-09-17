@@ -19,7 +19,6 @@ export default class ManageTeamsMenu extends React.Component{
         this.handleTeamSelect = this.handleTeamSelect.bind(this);
         this.getUserTeams = this.getUserTeams.bind(this);
         this.renderTeamsTab = this.renderTeamsTab.bind(this);
-        //this.renderTeamsContent = this.renderTeamsContent.bind(this);
     }
 
     componentDidMount(){
@@ -90,6 +89,7 @@ export default class ManageTeamsMenu extends React.Component{
                             members={team.members}
                             leaders={team.leaders}
                             dateCreated={team.dateCreated}
+                            playerApplications={playerAppsResult}
                         />
                     , document.getElementById('TeamMenu'));
                 }

@@ -7,10 +7,46 @@ import { Meteor } from 'meteor/meteor';
 export default class TeamMenu extends React.Component{
     constructor(){
         super()
+
+        this.renderMembers = this.renderMembers.bind(this);
+        this.checkLeaders = this.checkLeaders.bind(this);
     }
 
-    didComponentMount(){
+    componentDidMount(){
         $('.menu .item').tab();
+    }
+
+    renderMembers(){
+        let members = this.props.members;
+        if(members.length > 0){
+            return members.map((member) => {
+                return this.checkLeaders(member);
+            });
+        };
+    }
+
+    checkLeaders(member){
+        let leaders = this.props.leaders;
+        let memberLeader;
+        leaders.map((leader) => {
+            if(leader == member){
+                memberLeader = member;
+            };
+        });
+        if(member == memberLeader){
+            return (
+                <div key={member} className="item">
+                    <i className="yellow star icon"/>
+                    {member}
+                </div>
+            )
+        } else {
+            return (
+                <div key={member} className="item">
+                    {member}
+                </div>
+            )
+        }
     }
 
     render(){
@@ -39,8 +75,10 @@ export default class TeamMenu extends React.Component{
                         <div className="ui active tab stretched" data-tab="first">
                             <h2 className="ui top attached blue segment header">Overview</h2>
                             <div className="ui attached segment">
-                                <p>Leaders: Player 1</p>
-                                <p>Members: Players 1, 2, 3, 4, and 5</p>
+                                <h4 className="ui header">Members</h4>
+                                <div className="ui horizontal divided list">
+                                    {this.renderMembers()}
+                                </div>
                             </div>
                         </div>
                         <div className="ui tab stretched" data-tab="second">
