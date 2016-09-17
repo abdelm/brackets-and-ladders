@@ -14,10 +14,15 @@ export default class TeamMenu extends React.Component{
     }
 
     render(){
+        let teamName = this.props.teamName;
+        let members = this.props.members;
+        let leaders = this.props.leaders;
+        let dateCreated = this.props.dateCreated;
+
         return(
             <div className="ui stretched row two column grid">
                 <div className="ui top attached blue segment row centered">
-                    <h1 className="header column">Team Name</h1>
+                    <h1 className="header column">{teamName}</h1>
                 </div>
                 <div className="ui attached segment row">
                     <div className="two wide column">

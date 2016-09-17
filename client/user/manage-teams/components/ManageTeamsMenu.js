@@ -19,7 +19,7 @@ export default class ManageTeamsMenu extends React.Component{
         this.handleTeamSelect = this.handleTeamSelect.bind(this);
         this.getUserTeams = this.getUserTeams.bind(this);
         this.renderTeamsTab = this.renderTeamsTab.bind(this);
-        this.renderTeamsContent = this.renderTeamsContent.bind(this);
+        //this.renderTeamsContent = this.renderTeamsContent.bind(this);
     }
 
     componentDidMount(){
@@ -43,7 +43,8 @@ export default class ManageTeamsMenu extends React.Component{
         this.setState({loadedTeam: teamId});
     } 
 
-    handleTeamSelect(teamId){
+    handleTeamSelect(teamId, event){
+        event.preventDefault();
         this.renderTeamsContent(teamId);
     }
 
@@ -65,7 +66,7 @@ export default class ManageTeamsMenu extends React.Component{
         if (userTeams.length > 0) {
             return userTeams.map((team) => {
                 return(
-                    <button key={team._id} className="ui column two wide large circular button" onClick={this.handleTeamSelect(team._id)}>{team.teamName}</button>
+                    <button key={team._id} className="ui column two wide large circular button" onClick={(event) => this.handleTeamSelect(team._id, event)}>{team.teamName}</button>
                 )
             });
         } else {
@@ -76,21 +77,27 @@ export default class ManageTeamsMenu extends React.Component{
     }
 
     renderTeamsContent(teamId){
+        console.log(teamId);
         let userTeams = this.getUserTeams();
         let playerAppsResult = this.props.playerAppsResult;
         if(userTeams.length > 0){
             userTeams.map((team) => {
                 if(team._id == teamId){
-                    return(
-                        <TeamMenu>
+                    ReactDOM.render(
+                        <TeamMenu
                             key={team._id}
-                            team={team}
-                        </TeamMenu>
-                    )
+                            teamName={team.teamName}
+                            members={team.members}
+                            leaders={team.leaders}
+                            dateCreated={team.dateCreated}
+                        />
+                    , document.getElementById('TeamMenu'));
                 }
             })
         } else {
-            return <div/>
+            ReactDOM.render(
+                <div>You haven't selected a team</div>
+            , document.getElementById('TeamMenu'))
         }
     }
 
@@ -107,8 +114,7 @@ export default class ManageTeamsMenu extends React.Component{
                         Select a Team
                     </h4>
                 </div>
-                <div className="row">
-                    <TeamMenu />
+                <div className="row" id="TeamMenu">
                 </div>
             </div>
         )
