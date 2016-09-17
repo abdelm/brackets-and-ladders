@@ -18,6 +18,10 @@ export default class NavBar extends React.Component{
         this.updateUsername = this.updateUsername.bind(this);
     }
 
+    //Tracker function loaded as component is mounted. This is to refresh the component if the login state changes
+    //this is especially useful because FlowRouter renders the layout before any calls to the database are made.
+    //This set of code will reload the component once Meteor calls the database AFTER FlowRouter renders the layout.
+    //There is a fix for this using FlowRouter instead of a Tracker function but this will suffice for now.
     componentDidMount(){
         Tracker.autorun(() => {
             let user = Meteor.users.findOne({_id: Meteor.userId()});
@@ -32,6 +36,7 @@ export default class NavBar extends React.Component{
         });
     }
 
+    //Changes username based on component update through the Tracker Function in componentDidMount().
     updateUsername(userUsername){
         this.setState({username: userUsername});
     }

@@ -22,6 +22,8 @@ export default class TeamCard extends React.Component{
         this.setState({buttonUsed: !this.state.buttonUsed})
     }
 
+    //Handler for when the a user clicks on a "Apply for team" button. This method gets some user information and submits item
+    //to the playerApplication collection in the database
     handleApplication(event){
         event.preventDefault();
         const applicantId = this.props.applicantId;

@@ -12,17 +12,18 @@ export default class ManageTeamsMenu extends React.Component{
         super()
         this.state = {
             username: "",
-            loadedTeam: "",
         };
-        this.updateUsername = this.updateUsername.bind(this);  
-        this.updateLoadedTeam = this.updateLoadedTeam.bind(this);  
+        this.updateUsername = this.updateUsername.bind(this);   
         this.handleTeamSelect = this.handleTeamSelect.bind(this);
         this.getUserTeams = this.getUserTeams.bind(this);
         this.renderTeamsTab = this.renderTeamsTab.bind(this);
     }
 
+    //Tracker function loaded as component is mounted. This is to refresh the component if the login state changes
+    //this is especially useful because FlowRouter renders the layout before any calls to the database are made.
+    //This set of code will reload the component once Meteor calls the database AFTER FlowRouter renders the layout.
+    //There is a fix for this using FlowRouter instead of a Tracker function but this will suffice for now.
     componentDidMount(){
-        $('.tabular.menu .item').tab();
         Tracker.autorun(() => {
             let user = Meteor.users.findOne({_id: this.props.currentUserId});
             if (typeof user == 'undefined') {
@@ -33,20 +34,13 @@ export default class ManageTeamsMenu extends React.Component{
             }
         });
     }
-
+    
+    //Changes username based on component update through the Tracker Function in componentDidMount().
     updateUsername(userUsername){
         this.setState({username: userUsername});
     }   
 
-    updateLoadedTeam(teamId){
-        this.setState({loadedTeam: teamId});
-    } 
-
-    handleTeamSelect(teamId, event){
-        event.preventDefault();
-        this.renderTeamsContent(teamId);
-    }
-
+    //Is called by renderTeamsTab() and renderTeamsContent(). This method gets the teams that are associated with the currently logged in user.
     getUserTeams(){
         let teamsResult = this.props.teamsResult;
         let userTeams = new Array;
@@ -60,12 +54,13 @@ export default class ManageTeamsMenu extends React.Component{
         return userTeams;
     }
 
+    //Renders buttons for selecting teams.
     renderTeamsTab(){
         let userTeams = this.getUserTeams();
         if (userTeams.length > 0) {
             return userTeams.map((team) => {
                 return(
-                    <button key={team._id} className="ui column two wide large circular button" onClick={(event) => this.handleTeamSelect(team._id, event)}>{team.teamName}</button>
+                    <button key={team._id} className="ui column two wide large circular blue button" onClick={(event) => this.handleTeamSelect(team._id, event)}>{team.teamName}</button>
                 )
             });
         } else {
@@ -75,8 +70,15 @@ export default class ManageTeamsMenu extends React.Component{
         }
     }
 
+    handleTeamSelect(teamId, event){
+        event.preventDefault();
+        this.renderTeamsContent(teamId);
+    }
+
+    //Is called by the handleTeamSelect handler and renders the TeamMenu component and passes some props.
     renderTeamsContent(teamId){
-        console.log(teamId);
+        //Check if team changed and correct team is selected
+        //console.log(teamId);
         let userTeams = this.getUserTeams();
         let playerAppsResult = this.props.playerAppsResult;
         if(userTeams.length > 0){

@@ -12,6 +12,7 @@ export default class TeamList extends React.Component{
         super()
     }
 
+    //Is called by the renderer for this component. Renders each team and passes appropriate props to each.
     renderTeams(){
         let teamsResult = this.props.teamsResult;
         if (teamsResult.length > 0) {

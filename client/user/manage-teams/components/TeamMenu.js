@@ -10,12 +10,15 @@ export default class TeamMenu extends React.Component{
 
         this.renderMembers = this.renderMembers.bind(this);
         this.checkLeaders = this.checkLeaders.bind(this);
+        this.renderApplications = this.renderApplications.bind(this);
     }
 
+    //Semantic-UI tab javascript initialised the moment the component is mounted.
     componentDidMount(){
         $('.menu .item').tab();
     }
 
+    //Renders the list items for members and checks if a member is a leader or not.
     renderMembers(){
         let members = this.props.members;
         if(members.length > 0){
@@ -25,6 +28,7 @@ export default class TeamMenu extends React.Component{
         };
     }
 
+    //Called by renderMembers() and checks whether given member is a leader or not.
     checkLeaders(member){
         let leaders = this.props.leaders;
         let memberLeader;
@@ -49,10 +53,44 @@ export default class TeamMenu extends React.Component{
         }
     }
 
+    //NOTE: CONDITION NEEDED FOR DISPLAYING APPLICATION TAB, checks if logged in user is a leader
+    //Renders Applications
+    renderApplications(){
+        let teamApplications = this.getTeamApplications();
+        if(teamApplications.length > 0){
+            return teamApplications.map((application) => {
+                return (
+                    <div key={application._id} className="item">
+                        <h5 className="header left floated">{application.username}</h5>
+                        <div className="right floated">
+                            <button className="ui green button">Approve</button>
+                            <button className="ui red button">Reject</button>
+                        </div>
+                    </div>
+                )
+            });
+        } else {
+            return(
+                <div className="item">There are currently not applications to join your team</div>
+            )
+        }
+    }
+
+    //Filters applications and returns applications relevant to current team
+    getTeamApplications(){
+        let teamName = this.props.teamName;
+        let playerApplications = this.props.playerApplications;
+        let teamApplications = new Array;
+        playerApplications.forEach((application) => {
+            if(application.teamName == teamName){
+                teamApplications.push(application);
+            }
+        });
+        return teamApplications;  
+    }
+
     render(){
         let teamName = this.props.teamName;
-        let members = this.props.members;
-        let leaders = this.props.leaders;
         let dateCreated = this.props.dateCreated;
 
         return(
@@ -84,7 +122,9 @@ export default class TeamMenu extends React.Component{
                         <div className="ui tab stretched" data-tab="second">
                             <h2 className="ui top attached blue segment header">Applications</h2>
                             <div className="ui attached segment">
-                                <p>Hello 2</p>
+                                <div className="ui divided list">
+                                    {this.renderApplications()}
+                                </div>
                             </div>
                         </div>
                     </div>
