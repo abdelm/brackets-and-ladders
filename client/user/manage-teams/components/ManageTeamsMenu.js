@@ -87,6 +87,7 @@ export default class ManageTeamsMenu extends React.Component{
                     ReactDOM.render(
                         <TeamMenu
                             key={team._id}
+                            teamId={team._id}
                             teamName={team.teamName}
                             members={team.members}
                             leaders={team.leaders}

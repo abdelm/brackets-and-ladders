@@ -7,19 +7,12 @@ import { Meteor } from 'meteor/meteor';
 export default class TeamCard extends React.Component{
     constructor(){
         super();
-        this.state = {
-            buttonUsed : false,
-        }
-        this.toggleButton = this.toggleButton.bind(this);
+        
         this.handleApplication = this.handleApplication.bind(this);
     }
 
     componentDidMount(){
         $('.ui.accordion').accordion();
-    }
-
-    toggleButton(){
-        this.setState({buttonUsed: !this.state.buttonUsed})
     }
 
     //Handler for when the a user clicks on a "Apply for team" button. This method gets some user information and submits item
@@ -48,8 +41,6 @@ export default class TeamCard extends React.Component{
                 }
             }
         )
-
-        toggleButton();
     }
     
     render(){

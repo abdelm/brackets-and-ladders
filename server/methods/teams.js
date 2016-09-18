@@ -24,3 +24,17 @@ const createTeam = new ValidatedMethod({
         });
     }
 });
+
+const addPlayerToTeam = new ValidatedMethod({
+    name: "team_add_player",
+    validate: new SimpleSchema({
+        teamId: { type: String },
+        member: { type: String }
+    }).validator(),
+    run({teamId, member}) {
+        let insertPlayer = Teams.update(
+            { _id: teamId },
+            { $push: { members: member } }
+        );
+    }
+});

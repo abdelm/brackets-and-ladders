@@ -13,7 +13,7 @@ const createPlayerApplication = new ValidatedMethod({
     validate: new  SimpleSchema({
         teamName: { type: String },
         username: { type: String },
-        applicantId: { type: String}
+        applicantId: { type: String }
     }).validator(),
     run({teamName, username, applicantId}) {
         let insertPlayerApplication = PlayerApplications.insert({
@@ -23,5 +23,19 @@ const createPlayerApplication = new ValidatedMethod({
             dateCreated: new Date(),
             status: "Pending"
         });
+    }
+});
+
+const changePlayerApplicationStatus = new ValidatedMethod({
+    name: "player_application_status_change",
+    validate: new SimpleSchema({
+        status: { type: String },
+        applicationId : { type: String }
+    }).validator(),
+    run({status, applicationId}) {
+        let changeStatus = PlayerApplications.update(
+            { _id: applicationId }, 
+            { $set: { status: status } }
+        );
     }
 });

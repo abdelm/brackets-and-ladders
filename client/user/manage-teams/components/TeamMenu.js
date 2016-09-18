@@ -3,6 +3,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 
+//Import Dependencies
+import ApplicationItem from './ApplicationItem';
+
 //Component: Team Menu - Menu for a specific team selected in the manage teams Menu
 export default class TeamMenu extends React.Component{
     constructor(){
@@ -10,7 +13,8 @@ export default class TeamMenu extends React.Component{
 
         this.renderMembers = this.renderMembers.bind(this);
         this.checkLeaders = this.checkLeaders.bind(this);
-        this.renderApplications = this.renderApplications.bind(this);
+        this.renderPendingApplications = this.renderPendingApplications.bind(this);
+        this.renderPastApplications = this.renderPastApplications.bind(this);
     }
 
     //Semantic-UI tab javascript initialised the moment the component is mounted.
@@ -54,24 +58,62 @@ export default class TeamMenu extends React.Component{
     }
 
     //NOTE: CONDITION NEEDED FOR DISPLAYING APPLICATION TAB, checks if logged in user is a leader
-    //Renders Applications
-    renderApplications(){
+    //Renders Pending Applications
+    renderPendingApplications(){
         let teamApplications = this.getTeamApplications();
+        let pendingApplications = new Array;
         if(teamApplications.length > 0){
-            return teamApplications.map((application) => {
+            teamApplications.forEach((application) => {
+                if(application.status == "Pending"){
+                    pendingApplications.push(application);
+                }
+            });
+        }
+        if(pendingApplications.length > 0){
+            return pendingApplications.map((application) => {
                 return (
-                    <div key={application._id} className="item">
-                        <h5 className="header left floated">{application.username}</h5>
-                        <div className="right floated">
-                            <button className="ui green button">Approve</button>
-                            <button className="ui red button">Reject</button>
-                        </div>
-                    </div>
+                    <ApplicationItem 
+                    key={application._id}
+                    applicationId={application._id}
+                    applicantName={application.username}
+                    applicationStatus={application.status}
+                    teamId={this.props.teamId}
+                    />
                 )
             });
         } else {
             return(
-                <div className="item">There are currently not applications to join your team</div>
+                <div className="item">There are currently no applications to join your team</div>
+            )
+        }
+    }
+
+    //Renders Past Applications
+    renderPastApplications(){
+        let teamApplications = this.getTeamApplications();
+        let pastApplications = new Array;
+        if(teamApplications.length > 0){
+            teamApplications.forEach((application) => {
+                if(application.status != "Pending"){
+                    pastApplications.push(application);
+                }
+            });
+        }
+        if(pastApplications.length > 0){
+            return pastApplications.map((application) => {
+                return (
+                    <ApplicationItem 
+                    key={application._id}
+                    applicationId={application._id}
+                    applicantName={application.username}
+                    applicationStatus={application.status}
+                    teamId={this.props.teamId}
+                    />
+                )
+            });
+        } else {
+            return(
+                <div className="item">There is no history of applications to display</div>
             )
         }
     }
@@ -88,6 +130,7 @@ export default class TeamMenu extends React.Component{
         });
         return teamApplications;  
     }
+
 
     render(){
         let teamName = this.props.teamName;
@@ -123,7 +166,13 @@ export default class TeamMenu extends React.Component{
                             <h2 className="ui top attached blue segment header">Applications</h2>
                             <div className="ui attached segment">
                                 <div className="ui divided list">
-                                    {this.renderApplications()}
+                                    {this.renderPendingApplications()}
+                                </div>
+                            </div>
+                            <div className="ui attached segment">
+                                <h3 className="ui dividing header">Past Applications</h3>
+                                <div className="ui divided list">
+                                    {this.renderPastApplications()}
                                 </div>
                             </div>
                         </div>
