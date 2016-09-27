@@ -2,15 +2,18 @@
   "name": "brackets-and-ladders",
   "private": true,
   "scripts": {
-    "start": "meteor run"
+    "start": "meteor run",
+    "test": "spacejam test --driver-package=practicalmeteor:mocha-console-runner"i
   },
   "dependencies": {
     "bcrypt": "^0.8.7",
+    "enzyme": "^2.4.1",
     "meteor-node-stubs": "~0.2.0",
     "react": "^15.3.1",
-    "react-addons-pure-render-mixin": "^15.3.1",
+    "react-addons-pure-render-mixin": "^15.3.2",
     "react-dom": "^15.3.1",
-    "react-mounter": "^1.2.0"
+    "react-mounter": "^1.2.0",
+    "spacejam": "^1.6.1"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.1"
