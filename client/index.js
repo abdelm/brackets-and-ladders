@@ -12,6 +12,7 @@ import RegisterLayout from './register/RegisterLayout';
 import AboutLayout from './about/AboutLayout';
 import CreateTeamLayout from './tournaments/create-team/CreateTeamLayout';
 import ViewTeamLayout from './tournaments/view-teams/ViewTeamLayout';
+import CreateTournamentLayout from './tournaments/create-tournament/CreateTournamentLayout';
 import ManageTeamsLayout from './user/manage-teams/ManageTeamsLayout';
 
 //Components
@@ -20,11 +21,11 @@ import Home from './home/components/Home';
 import About from './about/components/About';
 import LoginForm from './login/components/LoginForm';
 import RegisterForm from './register/components/RegisterForm';
-import CreateTeamForm from './tournaments/create-team/components/CreateTeamForm';
 
 //Containers
 import ViewTeamContainer from './tournaments/view-teams/ViewTeamContainer';
 import CreateTeamContainer from './tournaments/create-team/CreateTeamContainer';
+import CreateTournamentContainer from './tournaments/create-tournament/CreateTournamentContainer';
 import ManageTeamsContainer from './user/manage-teams/ManageTeamsContainer';
 
 
@@ -92,6 +93,16 @@ FlowRouter.route("/view-teams", {
         mount(ViewTeamLayout, {
             navBar: (<NavBar />),
             container: (<ViewTeamContainer />),           
+        })
+    }
+});
+
+FlowRtouer.route("/create-tournament", {
+    name: "Create Tournament",
+    action() {
+        mount(CreateTournamentLayout, {
+            navBar: (<NavBar />),
+            container: (<CreateTournamentContainer />),
         })
     }
 });
