@@ -131,11 +131,14 @@ export default class NavBar extends React.Component{
                         <a className="item" href="/tournaments/view">
                             View Tournaments
                         </a>
-                        <a className="item" href="/create-team">
-                            Create Team
+                        <a className="item" href="/create-tournament">
+                            Create Tournament
                         </a>
                         <a className="item" href="/view-teams">
                             View Teams
+                        </a>
+                        <a className="item" href="/create-team">
+                            Create Team
                         </a>
                     </div>
                 </div>

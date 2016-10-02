@@ -97,7 +97,7 @@ FlowRouter.route("/view-teams", {
     }
 });
 
-FlowRtouer.route("/create-tournament", {
+FlowRouter.route("/create-tournament", {
     name: "Create Tournament",
     action() {
         mount(CreateTournamentLayout, {

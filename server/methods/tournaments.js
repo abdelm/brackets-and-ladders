@@ -12,12 +12,14 @@ const createTournament = new ValidatedMethod({
     name: "tournament_create",
     validate: new SimpleSchema({
         tournamentName: { type: String },
-        tournamentHost: { type: String }
+        tournamentHost: { type: String },
+        tournamentGame: { type: String }
     }).validator(),
-    run({tournamentName, tournamentHost}) {
+    run({tournamentName, tournamentHost, tournamentGame}) {
         let insertTournament = Tournaments.insert({
             tournamentName: tournamentName,
             tournamentHost: tournamentHost,
+            tournamentGame: tournamentGame,
             dateCreated: new Date()
         });
     }
