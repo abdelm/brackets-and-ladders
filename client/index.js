@@ -11,8 +11,9 @@ import LoginLayout from './login/LoginLayout';
 import RegisterLayout from './register/RegisterLayout';
 import AboutLayout from './about/AboutLayout';
 import CreateTeamLayout from './tournaments/create-team/CreateTeamLayout';
-import ViewTeamLayout from './tournaments/view-teams/ViewTeamLayout';
+import ViewTeamsLayout from './tournaments/view-teams/ViewTeamsLayout';
 import CreateTournamentLayout from './tournaments/create-tournament/CreateTournamentLayout';
+import ViewTournamentLayout from './tournaments/view-tournaments/ViewTournamentsLayout';
 import ManageTeamsLayout from './user/manage-teams/ManageTeamsLayout';
 
 //Components
@@ -23,8 +24,9 @@ import LoginForm from './login/components/LoginForm';
 import RegisterForm from './register/components/RegisterForm';
 
 //Containers
-import ViewTeamContainer from './tournaments/view-teams/ViewTeamContainer';
+import ViewTeamsContainer from './tournaments/view-teams/ViewTeamsContainer';
 import CreateTeamContainer from './tournaments/create-team/CreateTeamContainer';
+import ViewTournamentContainer from './tournaments/view-tournaments/ViewTournamentsContainer';
 import CreateTournamentContainer from './tournaments/create-tournament/CreateTournamentContainer';
 import ManageTeamsContainer from './user/manage-teams/ManageTeamsContainer';
 
@@ -77,7 +79,7 @@ FlowRouter.route("/about", {
     }
 });
 
-FlowRouter.route("/create-team", {
+FlowRouter.route("/teams/create-team", {
     name: "Create Team",
     action() {
         mount(CreateTeamLayout, {
@@ -87,7 +89,7 @@ FlowRouter.route("/create-team", {
     }
 });
 
-FlowRouter.route("/view-teams", {
+FlowRouter.route("/teams", {
     name: "View Teams",
     action() {
         mount(ViewTeamLayout, {
@@ -97,12 +99,22 @@ FlowRouter.route("/view-teams", {
     }
 });
 
-FlowRouter.route("/create-tournament", {
+FlowRouter.route("/tournaments/create-tournament", {
     name: "Create Tournament",
     action() {
         mount(CreateTournamentLayout, {
             navBar: (<NavBar />),
             container: (<CreateTournamentContainer />),
+        })
+    }
+});
+
+FlowRouter.route("/tournaments", {
+    name: "View Tournaments",
+    action() {
+        mount(ViewTournamentLayout, {
+            navBar: (<NavBar />),
+            container: (<ViewTournamentContainer />),           
         })
     }
 });

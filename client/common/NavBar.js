@@ -128,16 +128,16 @@ export default class NavBar extends React.Component{
                     Tournaments
                     <i className="dropdown icon"></i>
                     <div className="menu">
-                        <a className="item" href="/tournaments/view">
+                        <a className="item" href="/tournaments">
                             View Tournaments
                         </a>
-                        <a className="item" href="/create-tournament">
+                        <a className="item" href="/tournaments/create-tournament">
                             Create Tournament
                         </a>
-                        <a className="item" href="/view-teams">
+                        <a className="item" href="/teams">
                             View Teams
                         </a>
-                        <a className="item" href="/create-team">
+                        <a className="item" href="/teams/create-team">
                             Create Team
                         </a>
                     </div>

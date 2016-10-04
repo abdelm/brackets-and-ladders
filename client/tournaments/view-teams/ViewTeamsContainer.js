@@ -8,7 +8,7 @@ import Teams from '/client-server/collections/teamsCollection';
 import PlayerApplications from '/client-server/collections/playerAppsCollection';
 
 //Container: ViewTeam - for publishing and subscribing information on teams
-export default ViewTeamContainer = createContainer(() => {
+export default ViewTeamsContainer = createContainer(() => {
 
     Meteor.subscribe('teams');
     Meteor.subscribe('playerApplications');
@@ -21,7 +21,7 @@ export default ViewTeamContainer = createContainer(() => {
         //{ "member" : Meteor.userId() }
         {}
     ).fetch();
-    console.log(teamsResult);
+    //console.log(teamsResult);
 
     const playerAppsResult = PlayerApplications.find(
         {}
