@@ -27,6 +27,7 @@ useraccounts:semantic-ui
 aldeed:simple-schema
 mdg:validated-method
 react-meteor-data
-practicalmeteor:mocha
 xolvio:cleaner
-practicalmeteor:mocha-console-runner
+dispatch:mocha-phantomjs
+practicalmeteor:chai
+dburles:factory
