@@ -35,7 +35,7 @@ npm start
 
 ## Testing
 
-Tests are run using the [Mocha](http://mochajs.org/) test framework and the [Chai](http://chaijs.com/) assertion library. [PhantomJS](http://phantomjs.org/) is used to launch the tests, and run them in the command line.
+Tests are run using the [Mocha](http://mochajs.org/) test framework and the [Chai](http://chaijs.com/) assertion library. [PhantomJS](http://phantomjs.org/) is used to launch the tests, and run them in the command line. In addition to that, [Travis CI](https://travis-ci.org/) will be used to continuously run the tests and will be integrated with GitHub.
 
 ### Creating Tests
 The file format for the test files is `FILENAME.test.js` where `FILENAME` is the name of the component you're testing.
@@ -46,6 +46,44 @@ Server tests are inside the `server` directory, while client tests go inside the
 * `npm test`: Executes all the client and server tests
 * `npm test:watch`: Executes all client and server tests, and watches for changes in the files
 
-### Continuous Integration
+### Example Output
 
-[Travis CI](https://travis-ci.org/) will be used to continuously run the tests and will be integrated with GitHub.
+```
+I20161004-11:48:22.669(11)?
+I20161004-11:48:22.727(11)? --------------------------------
+I20161004-11:48:22.729(11)? ----- RUNNING SERVER TESTS -----
+I20161004-11:48:22.729(11)? --------------------------------
+I20161004-11:48:22.730(11)?
+I20161004-11:48:22.730(11)?
+I20161004-11:48:22.730(11)?
+I20161004-11:48:22.731(11)?   create account
+I20161004-11:48:22.732(11)?
+I20161004-11:48:22.733(11)?     ✓ should be able to create a user (133ms)
+I20161004-11:48:22.733(11)?
+I20161004-11:48:22.733(11)?
+I20161004-11:48:22.734(11)?   1 passing (169ms)
+I20161004-11:48:22.734(11)?
+I20161004-11:48:22.735(11)?
+I20161004-11:48:22.735(11)? --------------------------------
+I20161004-11:48:22.736(11)? ----- RUNNING CLIENT TESTS -----
+I20161004-11:48:22.736(11)? --------------------------------
+I20161004-11:48:22.736(11)?
+=> Started your app.
+
+=> App running at: http://localhost:3100/
+I20161004-11:48:24.600(11)?
+I20161004-11:48:24.600(11)?
+I20161004-11:48:24.610(11)?   RegisterForm
+I20161004-11:48:24.624(11)?     ✓ should have an input for the username and password
+I20161004-11:48:24.625(11)?
+I20161004-11:48:24.625(11)?
+I20161004-11:48:24.627(11)?   1 passing (26ms)
+I20161004-11:48:24.628(11)?
+I20161004-11:48:24.629(11)? stdout:
+I20161004-11:48:25.998(11)? All client and server tests finished!
+I20161004-11:48:25.999(11)?
+I20161004-11:48:26.010(11)? --------------------------------
+I20161004-11:48:26.010(11)? SERVER FAILURES: 0
+I20161004-11:48:26.011(11)? CLIENT FAILURES: 0
+I20161004-11:48:26.011(11)? --------------------------------
+```
