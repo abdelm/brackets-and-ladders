@@ -31,14 +31,14 @@ export default class TeamList extends React.Component{
             });
         } else {
             return (
-                <p>There are no teams available at this time. <a href="/create-team">Create a team</a>!</p>
+                <p>There are no teams available at this time. <a href="/teams/create-team">Create a team</a>!</p>
             );
         }
     }
 
     render(){
         return(
-            <div className="ui cards grid">
+            <div className="ui cards centered grid">
                 {this.renderTeams()}
             </div>
         )

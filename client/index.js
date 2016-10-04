@@ -92,9 +92,9 @@ FlowRouter.route("/teams/create-team", {
 FlowRouter.route("/teams", {
     name: "View Teams",
     action() {
-        mount(ViewTeamLayout, {
+        mount(ViewTeamsLayout, {
             navBar: (<NavBar />),
-            container: (<ViewTeamContainer />),           
+            container: (<ViewTeamsContainer />),           
         })
     }
 });

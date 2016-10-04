@@ -11,7 +11,10 @@ export default ViewTournamentsContainer = createContainer(() => {
     Meteor.subscribe('tournaments');
 
     const currentUser = Meteor.userId();
-    const tournamentsResult = Tournaments.find({}).fetch;
+    const tournamentsResult = Tournaments.find(
+        {}
+    ).fetch();
+    //console.log(tournamentsResult);
 
     return {
         currentUser,
