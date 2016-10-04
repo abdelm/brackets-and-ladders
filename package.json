@@ -2,14 +2,18 @@
   "name": "brackets-and-ladders",
   "private": true,
   "scripts": {
-    "start": "meteor run"
+    "test": "meteor test --once --driver-package dispatch:mocha-phantomjs --port 3100",
+    "test:watch": "TEST_WATCH=1 meteor test --driver-package dispatch:mocha-phantomjs",
+    "start": "meteor run --port 3000"
   },
   "dependencies": {
     "bcrypt": "^0.8.7",
+    "enzyme": "^2.4.1",
     "meteor-node-stubs": "~0.2.0",
-    "react": "^15.3.1",
-    "react-addons-pure-render-mixin": "^15.3.1",
-    "react-dom": "^15.3.1",
+    "react": "^15.3.2",
+    "react-addons-pure-render-mixin": "^15.3.2",
+    "react-addons-test-utils": "^15.3.2",
+    "react-dom": "^15.3.2",
     "react-mounter": "^1.2.0"
   },
   "devDependencies": {
