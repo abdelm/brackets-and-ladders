@@ -27,3 +27,7 @@ useraccounts:semantic-ui
 aldeed:simple-schema
 mdg:validated-method
 react-meteor-data
+xolvio:cleaner
+dispatch:mocha-phantomjs
+practicalmeteor:chai
+dburles:factory
