@@ -37,6 +37,8 @@ npm start
 
 Tests are run using the [Mocha](http://mochajs.org/) test framework and the [Chai](http://chaijs.com/) assertion library. [PhantomJS](http://phantomjs.org/) is used to launch the tests, and run them in the command line. In addition to that, [Travis CI](https://travis-ci.org/) will be used to continuously run the tests and will be integrated with GitHub.
 
+Use [Meteor Testing Guide](https://guide.meteor.com/testing.html) as a reference.
+
 ### Creating Tests
 The file format for the test files is `FILENAME.test.js` where `FILENAME` is the name of the component you're testing.
 
