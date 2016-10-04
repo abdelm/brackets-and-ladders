@@ -9,6 +9,7 @@ export default class TeamCard extends React.Component{
         super();
         
         this.handleApplication = this.handleApplication.bind(this);
+        this.printMembers = this.printMembers.bind(this);
     }
 
     componentDidMount(){
@@ -42,6 +43,14 @@ export default class TeamCard extends React.Component{
             }
         )
     }
+
+    //Handles displaying the members of the team
+    printMembers(){
+        const members = this.props.members;
+        return members.map((member)=>{
+            return(<div className="item">{member}</div>);
+        });
+    }
     
     render(){
         //Checks if player is already a part of the team or if they already have sent an application
@@ -69,7 +78,7 @@ export default class TeamCard extends React.Component{
 
         if (existingMember == true){
             applicationButton = (
-                <button className="ui column middle aligned button" disabled="true">You're already a member of this team</button>
+                <button className="ui column middle aligned button" disabled="true">You are already a member of this team</button>
             )
         } else if (existingApplicant == true){
             applicationButton = (
@@ -99,7 +108,7 @@ export default class TeamCard extends React.Component{
                         </div>
                         <div className="content">
                             <div className="ui list transition hidden">
-                                <div className="item">{this.props.members.toString()}</div>
+                                {this.printMembers()}
                             </div>
                         </div>
                     </div>
