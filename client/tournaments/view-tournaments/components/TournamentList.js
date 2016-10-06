@@ -25,6 +25,8 @@ export default class TournamentList extends React.Component{
                         tournamentGame={tournament.tournamentGame}
                         dateCreated={tournament.dateCreated}
                         tournamentTeams={tournament.teams}
+                        currentUser={this.props.currentUser}
+                        teamApplications={this.props.teamAppsResult}
                     />
                 )
             });

@@ -12,7 +12,7 @@ export default class ViewTournamentsLayout extends React.Component{
         return(
             <div>
                 <div>{this.props.navBar}</div>
-                <div className="ui container segment">
+                <div className="ui container vertical segment">
                     <div>{this.props.container}</div>
                 </div>
             </div>

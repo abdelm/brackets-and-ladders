@@ -12,7 +12,7 @@ export default class ViewTEamLayout extends React.Component{
         return(
             <div>
                 <div>{this.props.navBar}</div>
-                <div className="ui container segment">{this.props.container}</div>
+                <div className="ui container vertical segment">{this.props.container}</div>
             </div>
         )
     }

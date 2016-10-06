@@ -12,6 +12,20 @@ export default class TournamentItem extends React.Component{
 
     componentDidMount(){
         $('.ui.accordion').accordion();
+        $('.tournamentSignup')
+            .popup({
+                popup : $('.popup'),
+                on : 'click'
+            });
+        $('.ui.dropdown').dropdown();
+    }
+
+    //Handler for when a user clicks on the "sign up for event" button. Adds and application to the tournament for the
+    //tournament host to review.
+    handleApplication(event){
+        event.preventDefault();
+        let user = Meteor.users.findOne({_id: this.props.currentUser});
+        let username = user.username;
     }
 
     //Handles displaying the participating teams
@@ -24,6 +38,29 @@ export default class TournamentItem extends React.Component{
         } else {
             return (<div className="item">There are no teams in this tournament yet!</div>);
         }
+    }
+
+    renderButton(){
+        return(
+            <div>
+                <div className="ui primary button tournamentSignup" data-position="bottom center">Open Sign Ups!</div>
+                <div className="ui popup transition hidden">
+                    Select a team
+                    <div className="ui selection dropdown">
+                        <input name="gender" type="hidden"/>
+                        <i className="dropdown icon"></i>
+                        <div className="default text">Team</div>
+                        <div className="menu">
+                            <div className="item" data-value="1">Example team 1</div>
+                            <div className="item" data-value="0">Example team 2</div>
+                        </div>
+                    </div>
+                    <div className="ui divider"/>
+                    <div className="ui primary button">Sign Up!</div>
+                </div>
+            </div>
+
+        )
     }
 
     render(){
@@ -51,7 +88,7 @@ export default class TournamentItem extends React.Component{
                     </div>
                 </div>
                 <div className="content">
-                    <button className="ui column middle aligned primary button">Sign up for this event!</button>
+                    {this.renderButton()}
                 </div>
             </div>
         )
