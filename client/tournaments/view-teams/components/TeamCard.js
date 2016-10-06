@@ -38,7 +38,7 @@ export default class TeamCard extends React.Component{
                     console.log(err);
                 } else {
                     console.log('Successfully applied for ' + teamName);
-                    FlowRouter.go("/view-teams");
+                    FlowRouter.go("/teams");
                 }
             }
         )
@@ -48,7 +48,7 @@ export default class TeamCard extends React.Component{
     printMembers(){
         const members = this.props.members;
         return members.map((member)=>{
-            return(<div className="item">{member}</div>);
+            return(<div key={member._id} className="item">{member}</div>);
         });
     }
     
@@ -63,14 +63,14 @@ export default class TeamCard extends React.Component{
         let applicationButton;
 
         //for each loop in members and check if any member usernames match current username
-        members.map((member) => {
+        members.forEach((member) => {
             if (member == username){
                 existingMember = true;
             }
         });
 
         //search collection for application with same userID and teamName
-        playerApplications.map((playerApplication) => {
+        playerApplications.forEach((playerApplication) => {
             if (playerApplication.username == username && playerApplication.teamName == teamName){
                 existingApplicant = true;
             }

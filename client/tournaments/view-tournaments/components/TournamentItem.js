@@ -8,6 +8,8 @@ export default class TournamentItem extends React.Component{
     constructor(){
         super();
 
+
+        this.handleApplication = this.handleApplication.bind(this);
     }
 
     componentDidMount(){
@@ -16,8 +18,16 @@ export default class TournamentItem extends React.Component{
             .popup({
                 popup : $('.popup'),
                 on : 'click'
-            });
+            })
+        ;
         $('.ui.dropdown').dropdown();
+        $('.selection')
+            .popup({
+                position : 'right center',
+                content  : 'You must select a team first!',
+                on : 'manual'
+            })
+        ;
     }
 
     //Handler for when a user clicks on the "sign up for event" button. Adds and application to the tournament for the
@@ -26,9 +36,37 @@ export default class TournamentItem extends React.Component{
         event.preventDefault();
         let user = Meteor.users.findOne({_id: this.props.currentUser});
         let username = user.username;
+        let selectedTeam = $('#'+this.props.tournamentId)
+            .dropdown('get text');
+        //console.log(selectedTeam);
+        if(selectedTeam == "Team"){
+            $('.selection')
+                .popup('show')
+            ;
+        } else {
+            let tournamentId = this.props.tournamentId;
+            let teamApplication = {
+                "tournamentId" : tournamentId,
+                "teamName" : selectedTeam,
+                "username" : username,
+            }
+
+            Meteor.call('team_application_create', teamApplication,
+                (err) => {
+                    if (err) {
+                        console.log('Failed to apply for ' + this.props.tournamentName);
+                        this.setState({error: err.reason});
+                        console.log(err);
+                    } else {
+                        console.log('Successfully applied for ' + this.props.tournamentName);
+                        FlowRouter.go("/tournaments");
+                    }
+                }
+            )
+        }
     }
 
-    //Handles displaying the participating teams
+    //Handles displaying the participating teams, called in the render() method
     printTeams(){
         if(this.props.TournamentTeams != undefined){
             const teams = this.props.TournamentTeams;
@@ -40,27 +78,50 @@ export default class TournamentItem extends React.Component{
         }
     }
 
+    //Renders the button depending on a user's relationship with the tournament, is called in the render() method
     renderButton(){
         return(
             <div>
                 <div className="ui primary button tournamentSignup" data-position="bottom center">Open Sign Ups!</div>
                 <div className="ui popup transition hidden">
                     Select a team
-                    <div className="ui selection dropdown">
-                        <input name="gender" type="hidden"/>
+                    <div id={this.props.tournamentId} className="ui selection dropdown">
+                        <input name="team" type="hidden"/>
                         <i className="dropdown icon"></i>
                         <div className="default text">Team</div>
                         <div className="menu">
-                            <div className="item" data-value="1">Example team 1</div>
-                            <div className="item" data-value="0">Example team 2</div>
+                            {this.renderUserTeams()}
                         </div>
                     </div>
                     <div className="ui divider"/>
-                    <div className="ui primary button">Sign Up!</div>
+                    <div className="ui primary button" onClick={this.handleApplication}>Sign Up!</div>
                 </div>
             </div>
-
         )
+    }
+
+    //Renders user teams, is called by the renderButton() method
+    renderUserTeams(){
+        let teamsResult = this.props.teamsResult;
+        let user = Meteor.users.findOne({_id: this.props.currentUser});
+        let username = user.username;
+        let userTeams = new Array;
+
+        teamsResult.forEach((team) => {
+            team.members.forEach((member) => {
+                if(member == username){
+                    userTeams.push(team);
+                }
+            });
+        });
+        
+        let counter = -1;
+        return userTeams.map((team) => {
+            counter++;
+            return(
+                <div key={team._id} className="item" data-value={counter}>{team.teamName}</div>
+            )
+        })
     }
 
     render(){

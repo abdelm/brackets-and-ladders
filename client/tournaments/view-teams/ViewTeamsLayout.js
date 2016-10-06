@@ -4,7 +4,7 @@ import React from 'react';
 //Layout: ViewTeam - Layout for View team and its components
 
 
-export default class ViewTEamLayout extends React.Component{
+export default class ViewTeamsLayout extends React.Component{
     render(){
         const title = "View Team | Brackets and Ladders"
         DocHead.setTitle(title);

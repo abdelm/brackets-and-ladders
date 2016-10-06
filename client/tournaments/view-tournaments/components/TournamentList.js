@@ -20,6 +20,7 @@ export default class TournamentList extends React.Component{
                 return (
                     <TournamentItem
                         key={tournament._id}
+                        tournamentId={tournament._id}
                         tournamentName={tournament.tournamentName}
                         tournamentHost={tournament.tournamentHost}
                         tournamentGame={tournament.tournamentGame}
@@ -27,6 +28,7 @@ export default class TournamentList extends React.Component{
                         tournamentTeams={tournament.teams}
                         currentUser={this.props.currentUser}
                         teamApplications={this.props.teamAppsResult}
+                        teamsResult={this.props.teamsResult}
                     />
                 )
             });

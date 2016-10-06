@@ -14,14 +14,12 @@ const createTeamApplication = new ValidatedMethod({
         tournamentId: { type: String },
         teamName: { type: String },
         username: { type: String },
-        applicantionId: { type: String }
     }).validator(),
-    run({tournamentId, teamName, username, applicantionId}) {
+    run({tournamentId, teamName, username}) {
         let insertTeamApplication = TeamApplications.insert({
             tournamentId: tournamentId,
             teamName: teamName,
             username: username,
-            applicantionId: applicantId,
             dateCreated: new Date(),
             status: "Pending"
         });
