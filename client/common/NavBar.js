@@ -64,7 +64,7 @@ export default class NavBar extends React.Component{
     render(){
         //CSS Styles using React
         let navBarStyle = {
-            background: 'White',
+            background: '#00000F',
             borderRadius: "0px",
         }
 
@@ -95,7 +95,7 @@ export default class NavBar extends React.Component{
                 <div className="right menu">
                     <div className="ui simple dropdown item">
                         <i className="user icon large"></i>
-                        <div className="text">Welcome, {this.username}!</div>
+                        <div className=" text">Welcome, {this.username}!</div>
                         <div className="menu">
                             <a className="item" href="/user/manage-teams">Manage Teams</a>
                             <a className="item" href="/user">Settings</a>
@@ -112,7 +112,7 @@ export default class NavBar extends React.Component{
         let tournamentDropdown;
         if (this.state.accountButtons === true || !Meteor.userId()){
             tournamentDropdown = (
-                <div className="ui simple dropdown item">
+                <div className="ui  simple dropdown item">
                     Tournaments
                     <i className="dropdown icon"></i>
                     <div className="menu">
@@ -147,7 +147,7 @@ export default class NavBar extends React.Component{
 
         return(
             <div>
-                <div style={navBarStyle} className="ui large top menu">
+                <div style={navBarStyle} className="ui inverted large top menu">
                     <a className="header item" href="/">Brackets and Ladders</a>
                     { tournamentDropdown }
                     <a className="item" href="/about">
