@@ -10,9 +10,12 @@ export default class TournamentItem extends React.Component{
 
 
         this.handleApplication = this.handleApplication.bind(this);
+        this.hidePopup = this.hidePopup.bind(this);
+        this.getUserTeams = this.getUserTeams.bind(this);
     }
 
     componentDidMount(){
+        //JQuery
         $('.ui.accordion').accordion();
         $('.tournamentSignup')
             .popup({
@@ -25,8 +28,15 @@ export default class TournamentItem extends React.Component{
             .popup({
                 position : 'right center',
                 content  : 'You must select a team first!',
-                on : 'manual'
+                on : 'manual',
             })
+        ;
+    }
+
+    //Hides the "You must select a term first!" popup. Is called by handleApplication()
+    hidePopup(){
+        $('.selection')
+            .popup('hide')
         ;
     }
 
@@ -43,6 +53,7 @@ export default class TournamentItem extends React.Component{
             $('.selection')
                 .popup('show')
             ;
+            setTimeout(this.hidePopup, 2000);
         } else {
             let tournamentId = this.props.tournamentId;
             let teamApplication = {
@@ -80,33 +91,87 @@ export default class TournamentItem extends React.Component{
 
     //Renders the button depending on a user's relationship with the tournament, is called in the render() method
     renderButton(){
-        return(
-            <div>
-                <div className="ui primary button tournamentSignup" data-position="bottom center">Open Sign Ups!</div>
-                <div className="ui popup transition hidden">
-                    Select a team
-                    <div id={this.props.tournamentId} className="ui selection dropdown">
-                        <input name="team" type="hidden"/>
-                        <i className="dropdown icon"></i>
-                        <div className="default text">Team</div>
-                        <div className="menu">
-                            {this.renderUserTeams()}
+        const tournamentId = this.props.tournamentId;
+        let userTeams = this.getUserTeams();
+        let tournamentTeams = this.props.tournamentTeams;
+        let applicantTeams = this.props.teamApplications;
+        let existingTeam = false;
+        let existingApplication = false;
+        //Checks if a team that the user is a part of is already participating in the event
+        if(userTeams.length > 0){
+            if(tournamentTeams != undefined){
+                tournamentTeams.forEach((team) => {
+                    userTeams.forEach((userTeam) => {
+                        if(team.teamName == userTeam.teamName){
+                            existingTeam = true;
+                        }
+                    })
+                })
+            }
+            //checks if a team that the user is a part of has already submitted an application
+            applicantTeams.forEach((team2) => {
+                if(team2.tournamentId == tournamentId){
+                    userTeams.forEach((userTeam2) => {
+                        //console.log(team2, userTeam2)
+                        if(team2.teamName == userTeam2.teamName){
+                            existingApplication = true;
+                        }
+                    })
+                }
+            })
+            //console.log(userTeams);
+            //console.log(applicantTeams);
+            //console.log(existingApplication, existingTeam);
+
+            //Render conditions for buttons based on whether there is an existingApplication or existingTeam
+            if(existingApplication == false && existingTeam == false){
+                return(
+                    <div>
+                        <div className="ui primary button tournamentSignup" data-position="bottom center">Open Sign Ups!</div>
+                        <div className="ui popup transition hidden">
+                            Select a team
+                            <div id={this.props.tournamentId} className="ui selection dropdown">
+                                <input name="team" type="hidden"/>
+                                <div className="default text">Team</div>
+                                <i className="dropdown icon"></i>
+                                <div className="menu">
+                                    {this.renderUserTeams()}
+                                </div>
+                            </div>
+                            <div className="ui divider"/>
+                            <div className="ui primary button" onClick={this.handleApplication}>Sign Up!</div>
                         </div>
                     </div>
-                    <div className="ui divider"/>
-                    <div className="ui primary button" onClick={this.handleApplication}>Sign Up!</div>
+                )
+            } else if(existingApplication == true && existingTeam == false){
+                return(
+                    <div>
+                        <div className="ui primary button disabled">You are part of a team that has already applied to this event.</div>
+                    </div>
+                )
+            } else if(existingApplication == true && existingTeam == true){
+                return(
+                    <div>
+                        <div className="ui primary button disabled">You are in a team particpating in this tournament!</div>
+                    </div>
+                )
+            }
+        //When the user is a part of no teams, this will show    
+        } else {
+            return (
+                <div>
+                    <div className="ui primary button" disabled="true">You need to be in a team to sign up!</div>
                 </div>
-            </div>
-        )
+            )
+        }
     }
 
-    //Renders user teams, is called by the renderButton() method
-    renderUserTeams(){
-        let teamsResult = this.props.teamsResult;
+    //Is called by the renderButton() method and gets the teams that the currently logged in user is part of
+    getUserTeams(){
         let user = Meteor.users.findOne({_id: this.props.currentUser});
         let username = user.username;
+        let teamsResult = this.props.teamsResult;
         let userTeams = new Array;
-
         teamsResult.forEach((team) => {
             team.members.forEach((member) => {
                 if(member == username){
@@ -114,7 +179,12 @@ export default class TournamentItem extends React.Component{
                 }
             });
         });
-        
+        return userTeams;
+    }
+
+    //Renders user teams, is called by the renderButton() method
+    renderUserTeams(){
+        let userTeams = this.getUserTeams();
         let counter = -1;
         return userTeams.map((team) => {
             counter++;
