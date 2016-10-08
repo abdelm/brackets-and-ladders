@@ -83,7 +83,7 @@ export default class TeamMenu extends React.Component{
             });
         } else {
             return(
-                <div className="item">There are currently no applications to join your team</div>
+                <div className="item">There are currently no pending applications to join your team</div>
             )
         }
     }

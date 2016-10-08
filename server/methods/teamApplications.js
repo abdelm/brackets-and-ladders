@@ -27,7 +27,7 @@ const createTeamApplication = new ValidatedMethod({
 });
 
 const changeTeamApplicationStatus = new ValidatedMethod({
-    name: "Team_application_status_change",
+    name: "team_application_status_change",
     validate: new SimpleSchema({
         status: { type: String },
         applicationId : { type: String }

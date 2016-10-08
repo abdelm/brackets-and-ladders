@@ -29,7 +29,7 @@ const addTeamToTournament = new ValidatedMethod({
     name: "tournament_add_team",
     validate: new SimpleSchema({
         tournamentId: { type: String },
-        team: { type: [Object] }
+        team: { type: String }
     }).validator(),
     run({tournamentId, team}) {
         let insertTeam = Tournaments.update(
