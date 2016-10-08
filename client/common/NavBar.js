@@ -98,6 +98,7 @@ export default class NavBar extends React.Component{
                         <div className="text">Welcome, {this.username}!</div>
                         <div className="menu">
                             <a className="item" href="/user/manage-teams">Manage Teams</a>
+                            <a className="item" href="/user/manage-tournaments">Manage Tournaments</a>
                             <a className="item" href="/user">Settings</a>
                         </div>
                     </div>

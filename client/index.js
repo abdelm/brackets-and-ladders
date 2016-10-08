@@ -15,6 +15,7 @@ import ViewTeamsLayout from './tournaments/view-teams/ViewTeamsLayout';
 import CreateTournamentLayout from './tournaments/create-tournament/CreateTournamentLayout';
 import ViewTournamentLayout from './tournaments/view-tournaments/ViewTournamentsLayout';
 import ManageTeamsLayout from './user/manage-teams/ManageTeamsLayout';
+import ManageTournamentsLayout from './user/manage-tournaments/ManageTournamentsLayout';
 
 //Components
 import NavBar from './common/NavBar';
@@ -29,6 +30,7 @@ import CreateTeamContainer from './tournaments/create-team/CreateTeamContainer';
 import ViewTournamentContainer from './tournaments/view-tournaments/ViewTournamentsContainer';
 import CreateTournamentContainer from './tournaments/create-tournament/CreateTournamentContainer';
 import ManageTeamsContainer from './user/manage-teams/ManageTeamsContainer';
+import ManageTournamentsContainer from './user/manage-tournaments/ManageTournamentsContainer';
 
 
 /*
@@ -139,6 +141,16 @@ userRoutes.route("/manage-teams", {
         mount(ManageTeamsLayout, {
             navBar: (<NavBar />),
             container: (<ManageTeamsContainer />),
+        })
+    }
+});
+
+userRoutes.route("/manage-tournaments", {
+    name: "Manage Tournaments",
+    action() {
+        mount(ManageTournamentsLayout, {
+            navBar: (<NavBar />),
+            container: (<ManageTournamentsContainer />),
         })
     }
 });

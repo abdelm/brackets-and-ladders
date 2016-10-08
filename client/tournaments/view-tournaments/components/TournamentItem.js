@@ -49,6 +49,8 @@ export default class TournamentItem extends React.Component{
         let selectedTeam = $('#'+this.props.tournamentId)
             .dropdown('get text');
         //console.log(selectedTeam);
+        //The popup trigger is manual and therefore needs to be close manually also. This block of JQuery checks if the popup is needed
+        //if it is, it will trigger the popup, the popup will then remain visible for 2000ms or 2 seconds.
         if(selectedTeam == "Team"){
             $('.selection')
                 .popup('show')
