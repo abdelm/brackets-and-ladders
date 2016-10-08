@@ -64,7 +64,7 @@ export default class NavBar extends React.Component{
     render(){
         //CSS Styles using React
         let navBarStyle = {
-            background: '#00000F',
+            background: '#212121',
             borderRadius: "0px",
         }
 
