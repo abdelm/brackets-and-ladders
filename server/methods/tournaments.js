@@ -38,3 +38,15 @@ const addTeamToTournament = new ValidatedMethod({
         );
     }
 });
+
+const removeTournament = new ValidatedMethod({
+    name: "tournament_remove",
+    validate: new SimpleSchema({
+        tournamentId: { type: String },
+    }).validator(),
+    run({tournamentId}) {
+        let remove = Tournaments.remove(
+            { _id: tournamentId }
+        );
+    }
+});

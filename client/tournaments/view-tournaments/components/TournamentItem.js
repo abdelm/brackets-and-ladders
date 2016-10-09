@@ -81,8 +81,8 @@ export default class TournamentItem extends React.Component{
 
     //Handles displaying the participating teams, called in the render() method
     printTeams(){
-        if(this.props.TournamentTeams != undefined){
-            const teams = this.props.TournamentTeams;
+        if(this.props.tournamentTeams != undefined){
+            const teams = this.props.tournamentTeams;
             return teams.map((team)=>{
                 return(<div className="item">{team}</div>);
             });

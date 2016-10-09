@@ -13,7 +13,7 @@ export default ManageTournamentsContainer = createContainer(() => {
 
     Meteor.subscribe('teams');
     Meteor.subscribe('tournaments');
-    Meteor.subscribe('TeamApplications');
+    Meteor.subscribe('teamApplications');
 
     const currentUserId = Meteor.userId();
 

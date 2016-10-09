@@ -15,6 +15,7 @@ export default class ManageTournamentsMenu extends React.Component{
             username: "",
         };
         this.updateUsername = this.updateUsername.bind(this);
+        this.renderTeamsList = this.renderTeamsList.bind(this);
     }
 
     //Tracker function loaded as component is mounted. This is to refresh the component if the login state changes
@@ -56,7 +57,6 @@ export default class ManageTournamentsMenu extends React.Component{
     //Renders Tournaments hosted by the current user (they are buttons)
     renderTournaments(){
         let userTournaments = this.getUserTournaments();
-        console.log(userTournaments);
         if (userTournaments.length > 0){
             return userTournaments.map((tournament) => {
                 return(
@@ -69,7 +69,7 @@ export default class ManageTournamentsMenu extends React.Component{
                             <div className="right floated right aligned column">
                                 <div className="ui green disabled button">Update</div>
                                 <div className="ui button" onClick={(event) => this.renderManageTeams(tournament._id, event)}>Manage Teams</div>
-                                <div className="ui red button">Close</div>
+                                <div className="ui red button" onClick={(event) => this.renderCloseModal(tournament._id, event)}>Close</div>
                             </div>
                         </div>
                         <div id={tournament._id} className="ui modal">
@@ -86,10 +86,22 @@ export default class ManageTournamentsMenu extends React.Component{
                                         <div className="ui segment">
                                             <h2>Applications</h2>
                                         </div>
-                                        <div className="ui segment list">
+                                        <div className="ui segments">
                                             {this.renderPendingApplications(tournament)}
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id={"close"+tournament._id} className="ui modal">
+                            <div className="ui padded centered grid">
+                                <div className="row">
+                                    <h3>Are you sure?</h3>
+                                </div>
+                                <div className="row">This action will delete this tournament permanently and cannot be undone!</div>
+                                <div className="row">
+                                    <div className="ui green button" onClick={(event) => this.closeTournament(tournament._id, event)}>Yes, close this tournament</div>
+                                    <div className="ui red button" onClick={(event) => this.hideCloseModal(tournament._id, event)}>No</div>
                                 </div>
                             </div>
                         </div>
@@ -105,14 +117,15 @@ export default class ManageTournamentsMenu extends React.Component{
 
     //Modal trigger for rendering manage teams, called by renderTournaments()
     renderManageTeams(tournamentId, event){
+        event.preventDefault();
         $("#"+tournamentId).modal('show');
     }
 
     renderTeamsList(teams){
         if(teams != undefined){
-            teams.map((team) => {
+            return teams.map((team) => {
                 return(
-                    <div className="item">{team.teamName}</div>
+                    <div className="item">{team}</div>
                 )
             })
         } else{
@@ -134,21 +147,23 @@ export default class ManageTournamentsMenu extends React.Component{
                 }
             });
         }
+        //console.log("thisisatest", pendingApplications);
         if(pendingApplications.length > 0){
             return pendingApplications.map((application) => {
                 return(
                     <ApplicationItem
                     key={application._id}
-                    applicationId={application_.id}
+                    applicationId={application._id}
                     applicantName={application.username}
                     applicantTeamName={application.teamName}
                     applicationStatus={application.status}
+                    tournamentId={tournamentId}
                     />
                 )
             });
         } else{
             return(
-                <div className="item">There are currently no pending applications for this tournament.</div>
+                <div className="ui segment">There are currently no pending applications for this tournament.</div>
             )
         }
     }
@@ -158,7 +173,7 @@ export default class ManageTournamentsMenu extends React.Component{
         let teamAppsResult = this.props.teamAppsResult;
         let teamApplications = new Array;
         teamAppsResult.forEach((application) => {
-            if(aapplication.tournamentId == tournamentId){
+            if(application.tournamentId == tournamentId){
                 teamApplications.push(application);
             }
         });
@@ -166,8 +181,34 @@ export default class ManageTournamentsMenu extends React.Component{
     }
 
     //Renders modal that displays to double check the host's decision to close the tournament
-    renderCloseModal(){
+    renderCloseModal(tournamentId, event){
+        event.preventDefault();
+        $("#close"+tournamentId).modal('show');
+    }
 
+    hideCloseModal(tournamentId, event){
+        event.preventDefault();
+        $("#close"+tournamentId).modal('hide');
+    }
+
+    //Deletes the tournament
+    closeTournament(tournamentId, event){
+        event.preventDefault();
+        let tournamentParams = {
+            "tournamentId": tournamentId
+        }
+        Meteor.call('tournament_remove', tournamentParams,
+            (err) => {
+                if (err) {
+                    console.log('Failed to remove tournament');
+                    this.setState({error: err.reason});
+                    console.log(err);
+                } else {
+                    console.log('Successfully removed tournament');
+                }
+            }
+        )
+        this.hideCloseModal(tournamentId, event);
     }
 
     render(){

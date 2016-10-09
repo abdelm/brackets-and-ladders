@@ -33,7 +33,9 @@ export default class ApplicationItem extends React.Component{
                 } else {
                     console.log(status + ' Application ' + applicationId);
                     this.setState({applicationStatus: status});
-                    this.addTeam();
+                    if(status == "Approved"){
+                        this.addTeam();
+                    }
                 }
             }
         )
@@ -42,7 +44,7 @@ export default class ApplicationItem extends React.Component{
     addTeam(){
         let teamParams = {
             "tournamentId": this.props.tournamentId,
-            "teamId": this.props.teamId,
+            "team": this.props.applicantTeamName,
         }
 
         Meteor.call('tournament_add_team', teamParams,
@@ -61,11 +63,12 @@ export default class ApplicationItem extends React.Component{
     render(){
         let applicationId = this.props.applicationId;
         let applicantName = this.props.applicantName;
+        let applicantTeamName = this.props.applicantTeamName;
 
         //Different variations of rendering depending on whether the application is Pending or a Past application
         if(this.state.applicationStatus == "Pending"){
             item = (
-                <div>
+                <div className="ui segment">
                     <h5 className="header left floated">{applicantTeamName}</h5>
                     <div className="right floated">
                         <button className="ui green button" onClick={(event) => this.handleApplicationApproval(applicationId, "Approved", event)}>Approve</button>
@@ -75,7 +78,7 @@ export default class ApplicationItem extends React.Component{
             )
         } else if (this.state.applicationStatus == "Approved"){
             item = (
-                <div>
+                <div className="ui segment">
                     <h5 className="header left floated">{applicantTeamName}</h5>
                     <div className="right floated">
                         <i className="green check circle outline icon" />{this.state.applicationStatus}
@@ -84,7 +87,7 @@ export default class ApplicationItem extends React.Component{
             )
         } else if (this.state.applicationStatus == "Rejected"){
             item = (
-                <div>
+                <div className="ui segment">
                     <h5 className="header left floated">{applicantTeamName}</h5>
                     <div className="right floated">
                         <i className="red remove circle outline icon" />{this.state.applicationStatus}

@@ -38,7 +38,9 @@ export default class ApplicationItem extends React.Component{
                 } else {
                     console.log(status + ' Application ' + applicationId);
                     this.setState({applicationStatus: status});
-                    this.addNewMember();
+                    if(status == "Approved"){
+                        this.addNewMember();
+                    }
                 }
             }
         )
