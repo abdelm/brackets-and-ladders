@@ -10,8 +10,8 @@ import HomeLayout from './home/HomeLayout';
 import LoginLayout from './login/LoginLayout';
 import RegisterLayout from './register/RegisterLayout';
 import AboutLayout from './about/AboutLayout';
-import CreateTeamLayout from './tournaments/create-team/CreateTeamLayout';
-import ViewTeamsLayout from './tournaments/view-teams/ViewTeamsLayout';
+import CreateTeamLayout from './teams/create-team/CreateTeamLayout';
+import ViewTeamsLayout from './teams/view-teams/ViewTeamsLayout';
 import CreateTournamentLayout from './tournaments/create-tournament/CreateTournamentLayout';
 import ViewTournamentLayout from './tournaments/view-tournaments/ViewTournamentsLayout';
 import ManageTeamsLayout from './user/manage-teams/ManageTeamsLayout';
@@ -25,8 +25,8 @@ import LoginForm from './login/components/LoginForm';
 import RegisterForm from './register/components/RegisterForm';
 
 //Containers
-import ViewTeamsContainer from './tournaments/view-teams/ViewTeamsContainer';
-import CreateTeamContainer from './tournaments/create-team/CreateTeamContainer';
+import ViewTeamsContainer from './teams/view-teams/ViewTeamsContainer';
+import CreateTeamContainer from './teams/create-team/CreateTeamContainer';
 import ViewTournamentContainer from './tournaments/view-tournaments/ViewTournamentsContainer';
 import CreateTournamentContainer from './tournaments/create-tournament/CreateTournamentContainer';
 import ManageTeamsContainer from './user/manage-teams/ManageTeamsContainer';

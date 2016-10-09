@@ -109,7 +109,7 @@ export default class NavBar extends React.Component{
             );
         };
 
-
+        // Tournament menu
         let tournamentDropdown;
         if (this.state.accountButtons === true || !Meteor.userId()){
             tournamentDropdown = (
@@ -122,9 +122,9 @@ export default class NavBar extends React.Component{
                         </a>
                     </div>
                 </div>
-            )
+            );
         } else {
-            tournamentDropdown = (
+            tournamentDropdown = (            
                 <div className="ui simple dropdown item">
                     Tournaments
                     <i className="dropdown icon"></i>
@@ -135,6 +135,19 @@ export default class NavBar extends React.Component{
                         <a className="item" href="/tournaments/create-tournament">
                             Create Tournament
                         </a>
+                    </div>
+                </div>
+            );
+        };
+
+        // Team menu
+        let teamDropdown;
+        if (this.state.accountButtons === false && Meteor.userId()){
+            teamDropdown = (
+                <div className="ui simple dropdown item">
+                    Teams
+                    <i className="dropdown icon"></i>
+                    <div className="menu">
                         <a className="item" href="/teams">
                             View Teams
                         </a>
@@ -142,21 +155,22 @@ export default class NavBar extends React.Component{
                             Create Team
                         </a>
                     </div>
-                </div>
-            )
-        }
+                </div>                
+            );
+        };
 
         return(
             <div>
                 <div style={navBarStyle} className="ui inverted large top menu">
                     <a className="header item" href="/">Brackets and Ladders</a>
-                    { tournamentDropdown }
+                    { tournamentDropdown }                
+                    { teamDropdown }
                     <a className="item" href="/about">
                         About
                     </a>
                     { accountButtons }
                 </div>
             </div>
-        )
+        );
     }
 }
