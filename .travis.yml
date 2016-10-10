@@ -10,6 +10,7 @@ addons:
     - g++-4.8
 
 before_install:
+  - export PATH="$HOME/.meteor:$PATH"
   - export REPO_HOME="$TRAVIS_BUILD_DIR"
   - export PACKAGE_DIRS="$TRAVIS_BUILD_DIR/../"
   - chmod +x bin/install-meteor.sh
