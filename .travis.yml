@@ -3,10 +3,10 @@ node_js:
   - "4"
 services:
   - mongodb
-env:
-  - LAIKA_OPTIONS="-t 5000"
 before_install:
-  - "curl -L https://raw.githubusercontent.com/arunoda/travis-ci-laika/master/configure.sh | /bin/sh"
-  - "curl -L https://raw.githubusercontent.com/arunoda/travis-ci-meteor-packages/master/configure.sh | /bin/sh"
+  - export PATH="$HOME/.meteor:$PATH"
+  - export REPO_HOME="$TRAVIS_BUILD_DIR"
+  - export PACKAGE_DIRS="$TRAVIS_BUILD_DIR/../"
+  - "bin/install-meteor.sh"
 before_script:
   - "export PATH=$HOME/.meteor:$PATH"
