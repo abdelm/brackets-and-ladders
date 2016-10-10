@@ -1,13 +1,33 @@
 language: node_js
-node_js:
-  - "4"
-services:
-  - mongodb
+sudo: false
+env:
+  - CXX=g++-4.8
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - g++-4.8
+
 before_install:
   - export PATH="$HOME/.meteor:$PATH"
   - export REPO_HOME="$TRAVIS_BUILD_DIR"
   - export PACKAGE_DIRS="$TRAVIS_BUILD_DIR/../"
   - chmod +x bin/install-meteor.sh
   - "bin/install-meteor.sh"
+
 before_script:
   - "export PATH=$HOME/.meteor:$PATH"
+
+node_js:
+  - "6"
+  - "5"
+  - "4"
+  - "0.12"
+  - "0.10"
+
+services:
+- mongodb
+
+notifications:
+  email: false
