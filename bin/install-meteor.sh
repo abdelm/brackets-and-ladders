@@ -6,5 +6,5 @@ else
   echo "meteor already exists in Travis CI cache, not installing it."
 fi
 
-# Making sure correct version of meteor is downloaded
-meteor --release 1.4.1.1 --version
+# Making Meteor is installed
+meteor --version
