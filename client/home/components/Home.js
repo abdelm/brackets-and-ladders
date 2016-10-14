@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 
 //Import Dependencies
-
+import Overview from './Overview';
 
 //Page: Home - Landing page of site
 export default class Home extends React.Component{
@@ -28,14 +28,12 @@ export default class Home extends React.Component{
         }
 
         let homeButtons = null;
+        let homePage = null;
         // Hide sign up if user is logged in
         // @todo new buttons for logged in members?
         if (!Meteor.userId()){
             homeButtons = <a className="ui inverted large button" href="/register">SIGN UP</a>;
-        }
-
-        return (
-            <div style={mastheadStyle} className="ui centered padded grid">
+            homePage = (
                 <div className="column middle aligned ui centered grid">
                     <h1 style={headerStyle} className="ui column middle aligned header inverted row">Brackets and Ladders</h1>
                     <h2 style={subHeaderStyle} className="ui column middle aligned header inverted row">Your place for community driven tournaments</h2>
@@ -43,6 +41,14 @@ export default class Home extends React.Component{
                         {homeButtons}
                     </div>
                 </div>
+            )
+        } else {
+            homePage = <Overview/>
+        }
+
+        return (
+            <div style={mastheadStyle} className="ui centered padded grid">
+                {homePage}
             </div>
         )
     }
