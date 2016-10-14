@@ -9,7 +9,7 @@ import { Meteor } from 'meteor/meteor';
 export default class About extends React.Component{
     render(){
         return (
-            <div className="ui raised very padded text container segment">
+            <div className="ui very padded text container segment">
                 <div className="ui two column divided grid">
                     <div className="column">
                         <h2 className="ui header">About</h2>
