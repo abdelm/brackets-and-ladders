@@ -20,4 +20,5 @@ Meteor.methods({
             username: username,
             password: password
         });
-}})
+    }
+});

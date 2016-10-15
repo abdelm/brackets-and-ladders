@@ -1,14 +1,14 @@
-import { Meteor } from 'meteor/meteor';
-import { Accounts } from 'meteor/accounts-base';
 import { chai, expect } from 'meteor/practicalmeteor:chai';
 import { resetDatabase } from 'meteor/xolvio:cleaner';
+import { Accounts } from 'meteor/accounts-base';
+import { Meteor } from 'meteor/meteor';
 
 Meteor.methods({
   'test.resetDatabase': () => resetDatabase(),
 });
 
-describe('create account', function () {
-  it('should be able to create a user', function () {
+describe('Accounts', function () {
+  it('Create a new account', function () {
     Meteor.call('test.resetDatabase', function() {
       return true;
     });
