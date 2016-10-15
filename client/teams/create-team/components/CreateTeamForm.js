@@ -32,7 +32,7 @@ export default class CreateTeamForm extends React.Component{
 
     updateUsername(userUsername){
         this.setState({username: userUsername});
-    }    
+    }
 
     handleSubmit(event){
         event.preventDefault();

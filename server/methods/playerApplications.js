@@ -7,7 +7,7 @@ import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import PlayerApplications from '../../client-server/collections/playerAppsCollection';
 
 
-//Methods for teams 
+//Methods for teams
 const createPlayerApplication = new ValidatedMethod({
     name: "player_application_create",
     validate: new  SimpleSchema({
@@ -34,8 +34,10 @@ const changePlayerApplicationStatus = new ValidatedMethod({
     }).validator(),
     run({status, applicationId}) {
         let changeStatus = PlayerApplications.update(
-            { _id: applicationId }, 
+            { _id: applicationId },
             { $set: { status: status } }
         );
     }
 });
+
+module.exports = {createPlayerApplication, changePlayerApplicationStatus};

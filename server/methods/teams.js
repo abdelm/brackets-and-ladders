@@ -6,8 +6,7 @@ import { ValidatedMethod } from 'meteor/mdg:validated-method';
 //Import Collection
 import Teams from '../../client-server/collections/teamsCollection';
 
-
-//Methods for teams 
+//Methods for teams
 const createTeam = new ValidatedMethod({
     name: "team_create",
     validate: new  SimpleSchema({
@@ -38,3 +37,5 @@ const addPlayerToTeam = new ValidatedMethod({
         );
     }
 });
+
+module.exports = {createTeam, addPlayerToTeam};

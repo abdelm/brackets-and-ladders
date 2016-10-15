@@ -50,3 +50,5 @@ const removeTournament = new ValidatedMethod({
         );
     }
 });
+
+module.exports = {createTournament, addTeamToTournament, removeTournament};
