@@ -7,6 +7,8 @@ import { Meteor } from 'meteor/meteor';
 export default class TournamentItem extends React.Component{
     constructor(){
         super();
+
+        this.printTeams = this.printTeams.bind(this);
     }
 
     componentDidMount(){
@@ -28,7 +30,7 @@ export default class TournamentItem extends React.Component{
                     <div className="ui grid two column row">
                         <div className="eleven wide left aligned column">
                             <h3 className="ui inverted left aligned header">
-                                {this.props.tournamentName}  
+                                {this.props.tournamentName}
                             </h3>
                         </div>
                         <div className="five wide right aligned column">
@@ -38,10 +40,9 @@ export default class TournamentItem extends React.Component{
                     </div>
                 </div>
                 <div className="ui attached left aligned segment">
-                    {this.printTeams()}
+                    {this.printTeams}
                 </div>
             </div>
         )
     }
 }
-
