@@ -74,8 +74,54 @@ export default class Overview extends React.Component{
         }
     }
 
+    //Is called by the renderUserTournaments() method and gets the tournaments that the currently logged in user is part of
+    getUserTournaments(){
+        let username = this.state.username;
+        let tournamentsResult = this.props.tournamentsResult;
+        let userTournaments = new Array;
+        let userTeams = getUserTeams();
+
+        tournamentsResult.forEach((tournament) => {
+            if(username == tour.tournamentHost){
+                userTournaments.push(tournament);
+            } else{
+                tournament.tournamentTeams.forEach((tournamentTeam) => {
+                    userTeams.forEach((userTeam) => {
+                        if(tournamentTeam.tournamentName == userTeams.tournamentName){
+                            userTournaments.push(tournament);
+                        }
+                    });
+                });
+            }
+        });
+        console.log(this.userTournaments);
+        return userTournaments;
+    }
+
+    //Is called by the renderer for this component. Renders each team and passes appropriate props to each.
+    renderUserTeams(){
+        let userTeams = this.getUserTeams();
+        if (userTeams.length > 0) {
+            return userTeams.map((team) => {
+                return (
+                    <TeamItem
+                        key={team._id}
+                        teamName={team.teamName}
+                        leaders={team.leaders}
+                        members={team.members}
+                        username={this.state.username}/>
+                )
+            });
+        } else {
+            return (
+                <p>You are not in any teams</p>
+            );
+        }
+    }
+
     //Is called by the renderer for this component. Renders each tournament and passes appropriate props to each.
     renderTournaments(){
+        getUserTournaments();
         let tournamentsResult = this.props.tournamentsResult;
         if (tournamentsResult.length > 0) {
             return tournamentsResult.map((tournament) => {
@@ -89,7 +135,7 @@ export default class Overview extends React.Component{
                         dateCreated={tournament.dateCreated}
                         tournamentTeams={tournament.teams}
                         currentUser={this.props.currentUser}
-                        teamsResult={this.props.teamsResult}/>
+                        teamsResult={this.props.teamsResult} />
                 )
             });
         } else {
@@ -105,7 +151,6 @@ export default class Overview extends React.Component{
             fontSize: '50px',
             fontWeight: '300',
         }
-
 
         return(
         	<div className="ui column centered grid">
