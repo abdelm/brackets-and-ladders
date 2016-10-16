@@ -63,7 +63,8 @@ export default class Overview extends React.Component{
                         key={team._id}
                         teamName={team.teamName}
                         leaders={team.leaders}
-                        members={team.members}/>
+                        members={team.members}
+                        username={this.state.username}/>
                 )
             });
         } else {
