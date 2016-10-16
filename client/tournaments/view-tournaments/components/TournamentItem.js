@@ -129,7 +129,7 @@ export default class TournamentItem extends React.Component{
             if(existingApplication == false && existingTeam == false){
                 return(
                     <div>
-                        <div className="ui primary button tournamentSignup" data-position="bottom center">Open Sign Ups!</div>
+                        <div className="ui primary button tournamentSignup" data-position="bottom center">Sign Up Your Team</div>
                         <div className="ui popup transition hidden">
                             Select a team
                             <div id={this.props.tournamentId} className="ui selection dropdown">
@@ -158,7 +158,7 @@ export default class TournamentItem extends React.Component{
                     </div>
                 )
             }
-        //When the user is a part of no teams, this will show    
+        //When the user is a part of no teams, this will show
         } else {
             return (
                 <div>
@@ -227,4 +227,3 @@ export default class TournamentItem extends React.Component{
         )
     }
 }
-
