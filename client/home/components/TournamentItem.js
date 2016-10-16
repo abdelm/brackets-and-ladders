@@ -7,9 +7,6 @@ import { Meteor } from 'meteor/meteor';
 export default class TournamentItem extends React.Component{
     constructor(){
         super();
-
-        this.hidePopup = this.hidePopup.bind(this);
-        this.getUserTeams = this.getUserTeams.bind(this);
     }
 
     render(){
