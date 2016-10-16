@@ -123,6 +123,7 @@ export default class Overview extends React.Component{
     //Is called by the renderer for this component. Renders each tournament and passes appropriate props to each.
     renderTournaments(){
         let tournamentsResult = this.getUserTournaments();
+        let userTeams = this.getUserTeams();
         if (tournamentsResult.length > 0) {
             return tournamentsResult.map((tournament) => {
                 return (
@@ -135,7 +136,9 @@ export default class Overview extends React.Component{
                         dateCreated={tournament.dateCreated}
                         tournamentTeams={tournament.teams}
                         currentUser={this.props.currentUser}
-                        teamsResult={this.props.teamsResult} />
+                        teamsResult={this.props.teamsResult}
+                        userTeams={this.userTeams}
+                        username={this.state.username} />
                 )
             });
         } else {
