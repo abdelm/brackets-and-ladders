@@ -40,7 +40,7 @@ export default class Overview extends React.Component{
 
     //Is called by the renderUserTeams() method and gets the teams that the currently logged in user is part of
     getUserTeams(){
-        let user = Meteor.users.findOne({_id: this.props.currentUser});
+        let user = this.props.currentUser;
         let username = user.username;
         let teamsResult = this.props.teamsResult;
         let userTeams = new Array;
@@ -69,7 +69,7 @@ export default class Overview extends React.Component{
             });
         } else {
             return (
-                <p>You are not in any teams</p>
+                <p>You are not in any teams.</p>
             );
         }
     }
