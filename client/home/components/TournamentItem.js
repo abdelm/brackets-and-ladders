@@ -9,6 +9,18 @@ export default class TournamentItem extends React.Component{
         super();
     }
 
+    componentDidMount(){
+        $('.ui.accordion').accordion();
+    }
+
+    //Handles displaying the teams of the tournament
+    printTeams(){
+        const teams = this.props.tournamentTeams;
+        return teams.map((team)=>{
+            return(<div key={team._id} className="item">{team}</div>);
+        });
+    }
+
     render(){
         return(
             <div className="ui container segments">
@@ -16,7 +28,7 @@ export default class TournamentItem extends React.Component{
                     <div className="ui grid two column row">
                         <div className="eleven wide left aligned column">
                             <h3 className="ui inverted left aligned header">
-                                Tournament 1  
+                                {this.props.tournamentName}  
                             </h3>
                         </div>
                         <div className="five wide right aligned column">
@@ -26,7 +38,7 @@ export default class TournamentItem extends React.Component{
                     </div>
                 </div>
                 <div className="ui attached left aligned segment">
-                    <p>teams competing go here</p>
+                    {this.printTeams()}
                 </div>
             </div>
         )

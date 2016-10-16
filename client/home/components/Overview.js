@@ -18,6 +18,7 @@ export default class Overview extends React.Component{
 
         this.updateUsername = this.updateUsername.bind(this);
         this.getUserTeams = this.getUserTeams.bind(this);
+        this.getUserTournaments = this.getUserTournaments.bind(this);
     }
 
     componentDidMount(){
@@ -79,25 +80,25 @@ export default class Overview extends React.Component{
         let username = this.state.username;
         let tournamentsResult = this.props.tournamentsResult;
         let userTournaments = new Array;
-        let userTeams = getUserTeams();
+        let userTeams = this.getUserTeams();
 
         tournamentsResult.forEach((tournament) => {
-            if(username == tour.tournamentHost){
+            if(username == tournament.tournamentHost){
                 userTournaments.push(tournament);
             } else{
-                tournament.tournamentTeams.forEach((tournamentTeam) => {
-                    userTeams.forEach((userTeam) => {
-                        if(tournamentTeam.tournamentName == userTeams.tournamentName){
-                            userTournaments.push(tournament);
-                        }
+                if (typeof tournament.teams != 'undefined') {
+                    tournament.teams.forEach((tournamentTeam) => {
+                        userTeams.forEach((userTeam) => {
+                            if(tournamentTeam.tournamentName == userTeams.tournamentName){
+                                userTournaments.push(tournament);
+                            }
+                        });
                     });
-                });
+                }
             }
         });
-        console.log(this.userTournaments);
         return userTournaments;
     }
-
     //Is called by the renderer for this component. Renders each team and passes appropriate props to each.
     renderUserTeams(){
         let userTeams = this.getUserTeams();
@@ -121,8 +122,7 @@ export default class Overview extends React.Component{
 
     //Is called by the renderer for this component. Renders each tournament and passes appropriate props to each.
     renderTournaments(){
-        getUserTournaments();
-        let tournamentsResult = this.props.tournamentsResult;
+        let tournamentsResult = this.getUserTournaments();
         if (tournamentsResult.length > 0) {
             return tournamentsResult.map((tournament) => {
                 return (
