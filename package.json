@@ -6,6 +6,9 @@
     "test:watch": "TEST_WATCH=1 meteor test --driver-package dispatch:mocha-phantomjs",
     "start": "meteor run --port 3000"
   },
+  "engines": {
+    "node": "4.4.7"
+  },
   "dependencies": {
     "bcrypt": "^0.8.7",
     "enzyme": "^2.4.1",
