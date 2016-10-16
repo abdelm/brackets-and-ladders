@@ -9,7 +9,11 @@ import ApplicationItem from './ApplicationItem';
 //Component: Team Menu - Menu for a specific team selected in the manage teams Menu
 export default class TeamMenu extends React.Component{
     constructor(){
-        super()
+        super();
+
+        this.state = {
+            username: ""
+        };
 
         this.renderMembers = this.renderMembers.bind(this);
         this.renderSubs = this.renderSubs.bind(this);
@@ -21,6 +25,21 @@ export default class TeamMenu extends React.Component{
     //Semantic-UI tab javascript initialised the moment the component is mounted.
     componentDidMount(){
         $('.menu .item').tab();
+        Tracker.autorun(() => {
+            let user = Meteor.users.findOne({_id: Meteor.userId()});
+            if (typeof user == 'undefined') {
+                this.username = 'User';
+            } else {
+                this.username = user.username;
+                this.updateUsername(this.username);
+            }
+            //Check if username changes
+            //console.log(this.username);
+        });
+    }
+
+    updateUsername(userUsername){
+        this.setState({username: userUsername});
     }
 
     //Renders the list items for members and checks if a member is a leader or not.
@@ -146,10 +165,43 @@ export default class TeamMenu extends React.Component{
         return teamApplications;
     }
 
+    isUserLeader() {
+        let leaders = this.props.leaders;
+        let isUserLeader;
+        leaders.map((leader) => {
+            if(leader == this.username){
+                isUserLeader = true;
+            };
+        });
+
+        if (isUserLeader) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     render(){
         let teamName = this.props.teamName;
         let dateCreated = this.props.dateCreated;
+        let applications = <p><br/>You must be the leader to approve/reject applications.</p>;
+
+        if (this.isUserLeader()) {
+            applications =
+            <div>
+                <div className="ui attached segment">
+                    <div className="ui divided list">
+                        {this.renderPendingApplications()}
+                    </div>
+                </div>
+                <div className="ui attached segment">
+                    <h3 className="ui dividing header">Past Applications</h3>
+                    <div className="ui divided list">
+                        {this.renderPastApplications()}
+                    </div>
+                </div>
+            </div>;
+        }
 
         return(
             <div className="ui stretched row two column grid">
@@ -162,9 +214,7 @@ export default class TeamMenu extends React.Component{
                             <a className="active blue item" data-tab="first">
                                 Overview
                             </a>
-                            <a className="blue item" data-tab="second">
-                                Applications
-                            </a>
+                            <a className="blue item" data-tab="second">Applications</a>
                         </div>
                     </div>
                     <div className="right floated twelve wide column">
@@ -185,17 +235,7 @@ export default class TeamMenu extends React.Component{
                         </div>
                         <div className="ui tab stretched" data-tab="second">
                             <h2 className="ui top attached blue segment header">Applications</h2>
-                            <div className="ui attached segment">
-                                <div className="ui divided list">
-                                    {this.renderPendingApplications()}
-                                </div>
-                            </div>
-                            <div className="ui attached segment">
-                                <h3 className="ui dividing header">Past Applications</h3>
-                                <div className="ui divided list">
-                                    {this.renderPastApplications()}
-                                </div>
-                            </div>
+                            {applications}
                         </div>
                     </div>
                 </div>

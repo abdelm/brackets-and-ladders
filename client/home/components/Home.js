@@ -11,8 +11,8 @@ export default class Home extends React.Component{
     render(){
         //CSS styles using React
         let mastheadStyle = {
-            boxShadow: '0em 50em rgba(0, 0, 0, 0.7) inset',
-            background: 'url(/images/masthead.jpg)',
+            boxShadow: '0em 400em rgba(0, 0, 0, 0.7) inset',
+            background: 'url(/images/masthead.jpg) no-repeat',
             minHeight: '50em',
         };
         let headerStyle = {
@@ -47,7 +47,7 @@ export default class Home extends React.Component{
                 <Overview
                     currentUser = {this.props.currentUser}
                     tournamentsResult = {this.props.tournamentsResult}
-                    teamsResult=  {this.props.teamsResult}        
+                    teamsResult=  {this.props.teamsResult}
                 />
             )
         }
