@@ -12,6 +12,7 @@ export default class TeamMenu extends React.Component{
         super()
 
         this.renderMembers = this.renderMembers.bind(this);
+        this.renderSubs = this.renderSubs.bind(this);
         this.checkLeaders = this.checkLeaders.bind(this);
         this.renderPendingApplications = this.renderPendingApplications.bind(this);
         this.renderPastApplications = this.renderPastApplications.bind(this);
@@ -24,9 +25,23 @@ export default class TeamMenu extends React.Component{
 
     //Renders the list items for members and checks if a member is a leader or not.
     renderMembers(){
+        const mainSize = 5;
         let members = this.props.members;
-        if(members.length > 0){
-            return members.map((member) => {
+        let mainMembers = members.slice(0, mainSize);
+        if(mainMembers.length > 0){
+            return mainMembers.map((member) => {
+                return this.checkLeaders(member);
+            });
+        };
+    }
+
+    //Renders the list items for subs.
+    renderSubs(){
+        const mainSize = 5;
+        let members = this.props.members;
+        let subMembers = members.slice(mainSize, members.length);
+        if(subMembers.length > 0){
+            return subMembers.map((member) => {
                 return this.checkLeaders(member);
             });
         };
@@ -72,7 +87,7 @@ export default class TeamMenu extends React.Component{
         if(pendingApplications.length > 0){
             return pendingApplications.map((application) => {
                 return (
-                    <ApplicationItem 
+                    <ApplicationItem
                     key={application._id}
                     applicationId={application._id}
                     applicantName={application.username}
@@ -102,7 +117,7 @@ export default class TeamMenu extends React.Component{
         if(pastApplications.length > 0){
             return pastApplications.map((application) => {
                 return (
-                    <ApplicationItem 
+                    <ApplicationItem
                     key={application._id}
                     applicationId={application._id}
                     applicantName={application.username}
@@ -128,7 +143,7 @@ export default class TeamMenu extends React.Component{
                 teamApplications.push(application);
             }
         });
-        return teamApplications;  
+        return teamApplications;
     }
 
 
@@ -159,6 +174,12 @@ export default class TeamMenu extends React.Component{
                                 <h4 className="ui header">Members</h4>
                                 <div className="ui horizontal divided list">
                                     {this.renderMembers()}
+                                </div>
+                            </div>
+                            <div className="ui attached segment">
+                                <h4 className="ui header">Substitutes</h4>
+                                <div className="ui horizontal divided list">
+                                    {this.renderSubs()}
                                 </div>
                             </div>
                         </div>
