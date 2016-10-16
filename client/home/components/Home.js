@@ -43,7 +43,13 @@ export default class Home extends React.Component{
                 </div>
             )
         } else {
-            homePage = <Overview/>
+            homePage = (
+                <Overview
+                    currentUser = {this.props.currentUser}
+                    tournamentsResult = {this.props.tournamentsResult}
+                    teamsResult=  {this.props.teamsResult}        
+                />
+            )
         }
 
         return (

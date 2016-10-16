@@ -5,6 +5,7 @@ import { Meteor } from 'meteor/meteor';
 import { mongo } from 'meteor/mongo';
 
 //Import Dependencies
+import TournamentItem from './TournamentItem';
 
 //Component: Overview - Home page when logged in
 export default class Overview extends React.Component{
@@ -34,12 +35,38 @@ export default class Overview extends React.Component{
         this.setState({username: userUsername});
     }
 
+    //Is called by the renderer for this component. Renders each tournament and passes appropriate props to each.
+    renderTournaments(){
+        let tournamentsResult = this.props.tournamentsResult;
+        if (tournamentsResult.length > 0) {
+            return tournamentsResult.map((tournament) => {
+                return (
+                    <TournamentItem
+                        key={tournament._id}
+                        tournamentId={tournament._id}
+                        tournamentName={tournament.tournamentName}
+                        tournamentHost={tournament.tournamentHost}
+                        tournamentGame={tournament.tournamentGame}
+                        dateCreated={tournament.dateCreated}
+                        tournamentTeams={tournament.teams}
+                        currentUser={this.props.currentUser}
+                        teamsResult={this.props.teamsResult}/>
+                )
+            });
+        } else {
+            return (
+                <p>You are not entered into any tournaments.</p>
+            );
+        }
+    }
+
     render(){
 
     	let headerStyle = {
             fontSize: '50px',
             fontWeight: '300',
         }
+
 
         return(
         	<div className="ui column centered grid">
@@ -89,23 +116,8 @@ export default class Overview extends React.Component{
                                 Tournaments
                             </h3>
                             <div className="ui divider"></div>
-                            <div className="ui container segments">
-                                <div className="ui blue inverted top attached segment">
-                                    <div className="ui grid two column row">
-                                        <div className="eleven wide left aligned column">
-                                            <h3 className="ui inverted left aligned header">
-                                                Tournament 1  
-                                            </h3>
-                                        </div>
-                                        <div className="five wide right aligned column">
-                                            <i className="large setting icon"/>
-                                            <i className="large users icon"/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="ui attached left aligned segment">
-                                    <p>teams competing go here</p>
-                                </div>
+                            <div className="item">
+                                {this.renderTournaments()}
                             </div>
 						</div>
 					</div>
