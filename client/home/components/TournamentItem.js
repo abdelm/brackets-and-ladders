@@ -17,10 +17,14 @@ export default class TournamentItem extends React.Component{
 
     //Handles displaying the teams of the tournament
     printTeams(){
-        const teams = this.props.tournamentTeams;
-        return teams.map((team)=>{
-            return(<div key={team._id} className="item">{team}</div>);
-        });
+        if(this.props.tournamentTeams != undefined){
+            const teams = this.props.tournamentTeams;
+            return teams.map((team)=>{
+                return(<div key={team._id} className="item">{team}</div>);
+            });
+        } else {
+            return (<div className="item">There are no teams in this tournament yet!</div>);
+        }
     }
 
     render(){
@@ -46,7 +50,7 @@ export default class TournamentItem extends React.Component{
                         </div>
                         <div className="content">
                             <div className="ui list transition hidden">
-                                {this.printTeams}
+                                {this.printTeams()}
                             </div>
                         </div>
                     </div>
