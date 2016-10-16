@@ -40,7 +40,16 @@ export default class TournamentItem extends React.Component{
                     </div>
                 </div>
                 <div className="ui attached left aligned segment">
-                    {this.printTeams}
+                    <div className="ui accordion">
+                        <div className="title">
+                            <i className="dropdown icon"/><b>Teams</b>
+                        </div>
+                        <div className="content">
+                            <div className="ui list transition hidden">
+                                {this.printTeams}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         )

@@ -24,8 +24,6 @@ export default class TeamItem extends React.Component{
     render(){
 
         //Checks if player is the captain of the team
-        let members = this.props.members;
-        let teamName = this.props.teamName;
         let username = this.props.username;
         let leaders = this.props.leaders;
         let isUserLeader = false;
