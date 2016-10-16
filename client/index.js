@@ -25,6 +25,7 @@ import LoginForm from './login/components/LoginForm';
 import RegisterForm from './register/components/RegisterForm';
 
 //Containers
+import HomeContainer from './home/HomeContainer';
 import ViewTeamsContainer from './teams/view-teams/ViewTeamsContainer';
 import CreateTeamContainer from './teams/create-team/CreateTeamContainer';
 import ViewTournamentContainer from './tournaments/view-tournaments/ViewTournamentsContainer';
@@ -46,7 +47,7 @@ FlowRouter.route("/", {
     action() {
         mount(HomeLayout, {
             navBar: (<NavBar />),
-            home: (<Home />),
+            container: (<HomeContainer />),
         })
     }
 });
