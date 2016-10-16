@@ -6,6 +6,7 @@ import { mongo } from 'meteor/mongo';
 
 //Import Dependencies
 import TournamentItem from './TournamentItem';
+import TeamItem from './TeamItem';
 
 //Component: Overview - Home page when logged in
 export default class Overview extends React.Component{
@@ -14,7 +15,9 @@ export default class Overview extends React.Component{
     	this.state = {
             username: "",
         };
+
         this.updateUsername = this.updateUsername.bind(this);
+        this.getUserTeams = this.getUserTeams.bind(this);
     }
 
     componentDidMount(){
@@ -33,6 +36,42 @@ export default class Overview extends React.Component{
 
     updateUsername(userUsername){
         this.setState({username: userUsername});
+    }
+
+    //Is called by the renderUserTeams() method and gets the teams that the currently logged in user is part of
+    getUserTeams(){
+        let user = Meteor.users.findOne({_id: this.props.currentUser});
+        let username = user.username;
+        let teamsResult = this.props.teamsResult;
+        let userTeams = new Array;
+        teamsResult.forEach((team) => {
+            team.members.forEach((member) => {
+                if(member == username){
+                    userTeams.push(team);
+                }
+            });
+        });
+        return userTeams;
+    }
+
+    //Is called by the renderer for this component. Renders each team and passes appropriate props to each.
+    renderUserTeams(){
+        let userTeams = this.getUserTeams();
+        if (userTeams.length > 0) {
+            return userTeams.map((team) => {
+                return (
+                    <TeamItem
+                        key={team._id}
+                        teamName={team.teamName}
+                        leaders={team.leaders}
+                        members={team.members}/>
+                )
+            });
+        } else {
+            return (
+                <p>You are not in any teams</p>
+            );
+        }
     }
 
     //Is called by the renderer for this component. Renders each tournament and passes appropriate props to each.
@@ -90,24 +129,8 @@ export default class Overview extends React.Component{
                                 Teams
                             </h3>
                             <div className="ui divider"></div>
-                            <div className="ui container segments">
-                                <div className="ui blue inverted top attached segment">
-                                    <div className="ui grid two column row">
-                                        <div className="eleven wide left aligned column">
-                                            <h3 className="ui inverted left aligned header">
-                                                Team 1  
-                                            </h3>
-                                        </div>
-                                        <div className="five wide right aligned column">
-                                        <div className="ui icon" data-content="You are the owner of this team">
-                                            <i className="large yellow star icon"/>
-                                        </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="ui attached left aligned segment">
-                                    <p>members go here</p>
-                                </div>
+                            <div className="item">
+                                {this.renderUserTeams()}
                             </div>
 						</div>
 						<div className="column">
