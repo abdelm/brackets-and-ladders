@@ -79,7 +79,7 @@ export default class TournamentItem extends React.Component{
                             {hostIcon}
                         </div>
                         <div className="two wide column">
-                            <i className="large users icon"/>
+                            {participatingIcon}
                         </div>
                     </div>
                 </div>

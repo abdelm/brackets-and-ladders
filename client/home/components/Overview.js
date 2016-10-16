@@ -137,7 +137,7 @@ export default class Overview extends React.Component{
                         tournamentTeams={tournament.teams}
                         currentUser={this.props.currentUser}
                         teamsResult={this.props.teamsResult}
-                        userTeams={this.userTeams}
+                        userTeams={userTeams}
                         username={this.state.username} />
                 )
             });
