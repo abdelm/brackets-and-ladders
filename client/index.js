@@ -126,14 +126,6 @@ FlowRouter.route("/tournaments", {
 let userRoutes = FlowRouter.group({
     prefix: "/user",
     name: "User"
-    //create a trigger to redirect if not logged in
-});
-
-userRoutes.route("/", {
-    name: "User Settings",
-    action() {
-        //mount user settings layout
-    }
 });
 
 userRoutes.route("/manage-teams", {
@@ -153,6 +145,13 @@ userRoutes.route("/manage-tournaments", {
             navBar: (<NavBar />),
             container: (<ManageTournamentsContainer />),
         })
+    }
+});
+
+userRoutes.route("/", {
+    name: "User Settings",
+    action() {
+        //mount user settings layout
     }
 });
 
