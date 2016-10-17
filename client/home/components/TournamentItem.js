@@ -13,6 +13,9 @@ export default class TournamentItem extends React.Component{
 
     componentDidMount(){
         $('.ui.accordion').accordion();
+
+        $('.hostIcon').popup();
+        $('.participatingIcon').popup();
     }
 
     //Handles displaying the teams of the tournament
@@ -41,7 +44,7 @@ export default class TournamentItem extends React.Component{
 
         if(host == username) {
             hostIcon = (
-                <div className="ui icon" data-content="You are the owner of this tournament">
+                <div className="ui icon hostIcon" data-offset="-7" data-content="You are the owner of this tournament" data-variation="inverted">
                     <i className="large setting icon"/>
                 </div>
             )
@@ -60,7 +63,7 @@ export default class TournamentItem extends React.Component{
 
         if(isUserParticipating){
             participatingIcon = (
-                <div className="ui icon" data-content="You are participating in this tournament">
+                <div className="ui icon participatingIcon" data-offset="-7" data-content="You are participating in this tournament" data-variation="inverted">
                     <i className="large users icon"/>
                 </div>
             )

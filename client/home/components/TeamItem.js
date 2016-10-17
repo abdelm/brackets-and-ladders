@@ -11,6 +11,8 @@ export default class TeamItem extends React.Component{
 
     componentDidMount(){
         $('.ui.accordion').accordion();
+        
+        $('.leaderIcon').popup();
     }
 
     //Handles displaying the members of the team
@@ -38,7 +40,7 @@ export default class TeamItem extends React.Component{
 
         if(isUserLeader){
             leaderIcon = (
-                <div className="ui icon" data-content="You are the owner of this team">
+                <div className="ui icon leaderIcon" data-offset="21" data-content="You are the owner of this team" data-variation="inverted">
                     <i className="large yellow star icon"/>
                 </div>
             )
