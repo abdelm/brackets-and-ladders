@@ -18,6 +18,10 @@ export default class CreateTeamForm extends React.Component{
         this.updateUsername = this.updateUsername.bind(this);
     }
 
+    //Tracker function loaded as component is mounted. This is to refresh the component if the login state changes
+    //this is especially useful because FlowRouter renders the layout before any calls to the database are made.
+    //This set of code will reload the component once Meteor calls the database AFTER FlowRouter renders the layout.
+    //There is a fix for this using FlowRouter instead of a Tracker function but this will suffice for now.
     componentDidMount(){
         Tracker.autorun(() => {
             let user = Meteor.users.findOne({_id: this.props.currentUserId});
@@ -55,6 +59,7 @@ export default class CreateTeamForm extends React.Component{
         }
         console.log(team);
 
+        // Make sure all fields are filled out
         if (name !== '' && memberName1 !== '' && memberName2 !== '' &&
             memberName3 !== '' && memberName4 !== '' && memberName5 !== '') {
             Meteor.call('team_create', team,
@@ -65,11 +70,12 @@ export default class CreateTeamForm extends React.Component{
                         console.log(err);
                     } else {
                         console.log('Successfully created Team.');
-                        FlowRouter.go("/teams");
+                        FlowRouter.go("/teams"); // Redirect to teams page
                     }
                 }
             );
         } else {
+            // Send error message back using state to re-render the component
             this.setState({error: 'Team Name and Team Members cannot be empty. Please try again.'});
         }
     }
@@ -86,6 +92,7 @@ export default class CreateTeamForm extends React.Component{
             )
         }
 
+        // Automatically put in the current user's name as the leader
         if(this.state.username == "" || this.state.username == "User"){
             autofill = (
                 <div className="ui active centered inline loader"></div>

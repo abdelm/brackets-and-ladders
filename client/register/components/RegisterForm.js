@@ -20,8 +20,10 @@ export default class RegisterForm extends React.Component{
         const username = ReactDOM.findDOMNode(this.refs.username).value;
         const password = ReactDOM.findDOMNode(this.refs.password).value;
 
+        // Regex: password must be alphanumeric, and at least 8 chars long
         passwordValidation = /^(?=.*\d)[0-9a-zA-Z]{8,}$/;
 
+        // Check if password matches the regex
         if (password.match(passwordValidation)) {
             //Invoke meteor method to create account, accounts.create method is serverside and is called from there
             Meteor.call('accounts.create', username, password,
@@ -32,11 +34,12 @@ export default class RegisterForm extends React.Component{
                         console.log(err);
                     } else {
                         console.log('Registration Success.');
-                        FlowRouter.go("/");
+                        FlowRouter.go("/"); // Redirect to homepage
                     }
                 }
             );
         } else {
+            // Send error message back using state to re-render the component
             this.setState({error: 'Password must contain 8 characters with at least one letter and one number.'});
         }
     }

@@ -29,7 +29,7 @@ export default class LoginForm extends React.Component{
                     console.log(err);
                 } else {
                     console.log('Login Success.');
-                    FlowRouter.go("/");
+                    FlowRouter.go("/"); // Redirect to homepage
                 }
             }
         );

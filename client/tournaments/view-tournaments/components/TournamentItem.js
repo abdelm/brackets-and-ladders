@@ -64,6 +64,7 @@ export default class TournamentItem extends React.Component{
                 "username" : username,
             }
 
+            // Create a new team application
             Meteor.call('team_application_create', teamApplication,
                 (err) => {
                     if (err) {
@@ -72,7 +73,7 @@ export default class TournamentItem extends React.Component{
                         console.log(err);
                     } else {
                         console.log('Successfully applied for ' + this.props.tournamentName);
-                        FlowRouter.go("/tournaments");
+                        FlowRouter.go("/tournaments"); // redirect to tournaments page
                     }
                 }
             )
@@ -81,9 +82,12 @@ export default class TournamentItem extends React.Component{
 
     //Handles displaying the participating teams, called in the render() method
     printTeams(){
+        // Check if there are any teams in the tournament
         if(this.props.tournamentTeams != undefined){
+            // Get list of teams
             const teams = this.props.tournamentTeams;
             return teams.map((team)=>{
+                // Display each team
                 return(<div className="item">{team}</div>);
             });
         } else {

@@ -7,12 +7,13 @@ import { Meteor } from 'meteor/meteor';
 export default class TeamCard extends React.Component{
     constructor(){
         super();
-        
+
         this.handleApplication = this.handleApplication.bind(this);
         this.printMembers = this.printMembers.bind(this);
     }
 
     componentDidMount(){
+        // Semantic accordion style
         $('.ui.accordion').accordion();
     }
 
@@ -30,6 +31,7 @@ export default class TeamCard extends React.Component{
             "applicantId" : applicantId
         }
 
+        // Create a new player application
         Meteor.call('player_application_create', playerApplication,
             (err) => {
                 if (err) {
@@ -38,7 +40,7 @@ export default class TeamCard extends React.Component{
                     console.log(err);
                 } else {
                     console.log('Successfully applied for ' + teamName);
-                    FlowRouter.go("/teams");
+                    FlowRouter.go("/teams"); // Redirect to teams page
                 }
             }
         )
@@ -46,12 +48,14 @@ export default class TeamCard extends React.Component{
 
     //Handles displaying the members of the team
     printMembers(){
+        // Get list of members and loop through them
         const members = this.props.members;
         return members.map((member)=>{
+            // Display each member
             return(<div key={member._id} className="item">{member}</div>);
         });
     }
-    
+
     render(){
         //Checks if player is already a part of the team or if they already have sent an application
         let members = this.props.members;
@@ -76,6 +80,7 @@ export default class TeamCard extends React.Component{
             }
         })
 
+        // Display apply button depending on current application status
         if (existingMember == true){
             applicationButton = (
                 <button className="ui column middle aligned button" disabled="true">You are already a member of this team</button>
@@ -99,7 +104,7 @@ export default class TeamCard extends React.Component{
                     <h5>Created {this.props.dateCreated.toString()}</h5>
                 </div>
                 <div className="content">
-                    <div className="content"><b>Leader:</b> 
+                    <div className="content"><b>Leader:</b>
                         <div>{this.props.leaders.toString()}</div>
                     </div>
                     <div className="ui accordion">

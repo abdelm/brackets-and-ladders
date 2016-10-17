@@ -14,6 +14,7 @@ export default class TournamentList extends React.Component{
 
     //Is called by the renderer for this component. Renders each tournament and passes appropriate props to each.
     renderTournaments(){
+        // Get all tournaments
         let tournamentsResult = this.props.tournamentsResult;
         if (tournamentsResult.length > 0) {
             return tournamentsResult.map((tournament) => {
@@ -33,6 +34,7 @@ export default class TournamentList extends React.Component{
                 )
             });
         } else {
+            // Print error message if no tournaments exist
             return (
                 <p>There are no tournaments available at this team. <a href="/tournaments/create-tournament">Create a tournament</a>!</p>
             );

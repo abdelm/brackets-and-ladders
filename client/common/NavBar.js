@@ -54,10 +54,11 @@ export default class NavBar extends React.Component{
                     console.log(err);
                 } else {
                     console.log('Logout Success.');
-                    FlowRouter.go("/login");
+                    FlowRouter.go("/login"); // Redirect to login page
                 }
             }
         );
+        // Change buttons to Login/SignUp
         this.toggleAccountButtons();
     }
 
@@ -111,6 +112,7 @@ export default class NavBar extends React.Component{
 
         // Tournament menu
         let tournamentDropdown;
+        // Only show View Tournaments if user not logged in
         if (this.state.accountButtons === true || !Meteor.userId()){
             tournamentDropdown = (
                 <div className="ui  simple dropdown item">
@@ -124,7 +126,7 @@ export default class NavBar extends React.Component{
                 </div>
             );
         } else {
-            tournamentDropdown = (            
+            tournamentDropdown = (
                 <div className="ui simple dropdown item">
                     Tournaments
                     <i className="dropdown icon"></i>
@@ -155,7 +157,7 @@ export default class NavBar extends React.Component{
                             Create Team
                         </a>
                     </div>
-                </div>                
+                </div>
             );
         };
 
@@ -163,7 +165,7 @@ export default class NavBar extends React.Component{
             <div>
                 <div style={navBarStyle} className="ui inverted large top menu">
                     <a className="header item" href="/">Brackets and Ladders</a>
-                    { tournamentDropdown }                
+                    { tournamentDropdown }
                     { teamDropdown }
                     <a className="item" href="/about">
                         About
