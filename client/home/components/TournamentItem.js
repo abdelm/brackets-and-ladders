@@ -48,7 +48,7 @@ export default class TournamentItem extends React.Component{
                     <i className="large setting icon"/>
                 </div>
             )
-        } 
+        }
 
         //for each loop in members and check if any member usernames match current username
         if (typeof tournamentTeams != 'undefined' && typeof userTeams != 'undefined') {
