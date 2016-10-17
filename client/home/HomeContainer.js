@@ -21,7 +21,7 @@ export default HomeContainer = createContainer(() => {
         {}
     ).fetch();
 
-
+    //Passes needed props into the Home.js file
     return {
         currentUser,
         tournamentsResult,

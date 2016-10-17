@@ -5,13 +5,17 @@ import { Meteor } from 'meteor/meteor';
 
 //Component: Team Item - item that contains team information
 export default class TeamItem extends React.Component{
+    //constructor initialises starting states 
     constructor(){
-        super();
+        super(); //this method invokes the parent class' constructor
     }
 
+   //this is called immediately after the component is rendered. checks if the components was mounted
     componentDidMount(){
+        //Semantic UI. creates an accordion
         $('.ui.accordion').accordion();
         
+        //Semantic UI. creates a popup 
         $('.leaderIcon').popup();
     }
 
@@ -25,7 +29,7 @@ export default class TeamItem extends React.Component{
 
     render(){
 
-        //Checks if player is the captain of the team
+        //props needed for checking if the user is a leader and showing that in the team card
         let username = this.props.username;
         let leaders = this.props.leaders;
         let isUserLeader = false;
@@ -38,6 +42,7 @@ export default class TeamItem extends React.Component{
             }
         });
 
+        //if the user is the leader, display a yellow star icon
         if(isUserLeader){
             leaderIcon = (
                 <div className="ui icon leaderIcon" data-offset="21" data-content="You are the owner of this team" data-variation="inverted">
@@ -46,6 +51,7 @@ export default class TeamItem extends React.Component{
             )
         }
 
+        //RETURN
         return(
             <div className="ui container segments">
                 <div className="ui blue inverted top attached segment">

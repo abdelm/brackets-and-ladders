@@ -5,15 +5,18 @@ import { Meteor } from 'meteor/meteor';
 
 //Component: Tournament Item - item that contains tournament information
 export default class TournamentItem extends React.Component{
+    //constructor initialises starting states 
     constructor(){
-        super();
+        super(); //this method invokes the parent class' constructor
 
-        this.printTeams = this.printTeams.bind(this);
     }
 
+   //this is called immediately after the component is rendered. checks if the components was mounted
     componentDidMount(){
+        //Semantic UI. creates an accordion
         $('.ui.accordion').accordion();
 
+        //Semantic UI. creates a popup 
         $('.hostIcon').popup();
         $('.participatingIcon').popup();
     }
@@ -32,7 +35,7 @@ export default class TournamentItem extends React.Component{
 
     render(){
 
-        //Checks if user is participating or the owner of the tournament
+        //props needed in order to check if user is participating or the owner of the tournament
         let username = this.props.username;
         let host = this.props.tournamentHost;
         let tournamentTeams = this.props.tournamentTeams;
@@ -41,7 +44,7 @@ export default class TournamentItem extends React.Component{
         let hostIcon;
         let participatingIcon;
 
-
+        //If user is the host, display a setting icon
         if(host == username) {
             hostIcon = (
                 <div className="ui icon hostIcon" data-offset="-7" data-content="You are the owner of this tournament" data-variation="inverted">
@@ -50,7 +53,8 @@ export default class TournamentItem extends React.Component{
             )
         }
 
-        //for each loop in members and check if any member usernames match current username
+        //for each member in members check if any member usernames match current username
+        //this will check if the user is participating in the tournament
         if (typeof tournamentTeams != 'undefined' && typeof userTeams != 'undefined') {
             tournamentTeams.forEach((tournamentTeam) => {
                 userTeams.forEach((userTeam) => {
@@ -61,6 +65,7 @@ export default class TournamentItem extends React.Component{
             });
         }
 
+        //if the user is participating, display a users icon
         if(isUserParticipating){
             participatingIcon = (
                 <div className="ui icon participatingIcon" data-offset="-7" data-content="You are participating in this tournament" data-variation="inverted">
@@ -69,6 +74,7 @@ export default class TournamentItem extends React.Component{
             )
         }
 
+        //RETURN
         return(
             <div className="ui container segments">
                 <div className="ui blue inverted top attached segment">

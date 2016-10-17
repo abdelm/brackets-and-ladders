@@ -9,6 +9,7 @@ import Overview from './Overview';
 //Page: Home - Landing page of site
 export default class Home extends React.Component{
     render(){
+
         //CSS styles using React
         let mastheadStyle = {
             boxShadow: '0em 400em rgba(0, 0, 0, 0.7) inset',
@@ -29,8 +30,11 @@ export default class Home extends React.Component{
 
         let homeButtons = null;
         let homePage = null;
-        // Hide sign up if user is logged in
-        // @todo new buttons for logged in members?
+
+
+        // If the user is not logged in, the page will display a basic Landing page screen.
+        // However, if the user is logged in, an Overview page will appear, which will display 
+        // information regarding user's teams and tournmanents they are apart of.
         if (!Meteor.userId()){
             homeButtons = <a className="ui inverted large button" href="/register">SIGN UP</a>;
             homePage = (
@@ -43,15 +47,16 @@ export default class Home extends React.Component{
                 </div>
             )
         } else {
+            //display the Overview on the home page. Needed props are passed into the Overview.js file
             homePage = (
                 <Overview
                     currentUser = {this.props.currentUser}
                     tournamentsResult = {this.props.tournamentsResult}
-                    teamsResult=  {this.props.teamsResult}
-                />
+                    teamsResult=  {this.props.teamsResult} />
             )
         }
 
+        //RETURN
         return (
             <div style={mastheadStyle} className="ui centered padded grid">
                 {homePage}

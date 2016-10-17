@@ -10,8 +10,10 @@ import TeamItem from './TeamItem';
 
 //Component: Overview - Home page when logged in
 export default class Overview extends React.Component{
+    
+    //constructor initialises starting states 
     constructor(){
-    	super();
+    	super(); //this method invokes the parent class' constructor
     	this.state = {
             username: "",
         };
@@ -21,6 +23,7 @@ export default class Overview extends React.Component{
         this.getUserTournaments = this.getUserTournaments.bind(this);
     }
 
+    //this is called immediately after the component is rendered. checks if the components was mounted
     componentDidMount(){
         Tracker.autorun(() => {
             let user = Meteor.users.findOne({_id: Meteor.userId()});
@@ -35,11 +38,14 @@ export default class Overview extends React.Component{
         });
     }
 
+    //updates the username according to what the current user's name is.
     updateUsername(userUsername){
         this.setState({username: userUsername});
     }
 
-    //Is called by the renderUserTeams() method and gets the teams that the currently logged in user is part of
+    //Is called by the renderUserTeams() method and gets the teams that the currently logged in that the user is part of.
+    //Loops through the each team and checks the user's name against each of the members in the team. If the user is in the team,
+    //the team will be added to the userTeams array. userTeams is then returned.
     getUserTeams(){
         let username = this.state.username;
         let teamsResult = this.props.teamsResult;
@@ -55,6 +61,8 @@ export default class Overview extends React.Component{
     }
 
     //Is called by the renderer for this component. Renders each team and passes appropriate props to each.
+    //Once called, each team (with the appropriate props) is passed into TeamItem.js, which will create a separate item for each.
+    //if there are no teams, a placeholder is displayed
     renderUserTeams(){
         let userTeams = this.getUserTeams();
         if (userTeams.length > 0) {
@@ -76,6 +84,9 @@ export default class Overview extends React.Component{
     }
 
     //Is called by the renderUserTournaments() method and gets the tournaments that the currently logged in user is part of
+    //Loops through the each tournament and checks the user's name against the host's username. It will also check if any of the user's 
+    //teams are apart of the tournament. If the user is in the team or is the host, the team will be added to the userTournaments array. 
+    //userTeams is then returned.
     getUserTournaments(){
         let username = this.state.username;
         let tournamentsResult = this.props.tournamentsResult;
@@ -99,28 +110,10 @@ export default class Overview extends React.Component{
         });
         return userTournaments;
     }
-    //Is called by the renderer for this component. Renders each team and passes appropriate props to each.
-    renderUserTeams(){
-        let userTeams = this.getUserTeams();
-        if (userTeams.length > 0) {
-            return userTeams.map((team) => {
-                return (
-                    <TeamItem
-                        key={team._id}
-                        teamName={team.teamName}
-                        leaders={team.leaders}
-                        members={team.members}
-                        username={this.state.username}/>
-                )
-            });
-        } else {
-            return (
-                <p>You are not in any teams</p>
-            );
-        }
-    }
 
     //Is called by the renderer for this component. Renders each tournament and passes appropriate props to each.
+    //Once called, each tournament (with the appropriate props) is passed into TournamentItem.js, which will create a separate item for each.
+    //if there is no tournaments, a placeholder is displayed.
     renderTournaments(){
         let tournamentsResult = this.getUserTournaments();
         let userTeams = this.getUserTeams();
@@ -132,8 +125,6 @@ export default class Overview extends React.Component{
                         tournamentId={tournament._id}
                         tournamentName={tournament.tournamentName}
                         tournamentHost={tournament.tournamentHost}
-                        tournamentGame={tournament.tournamentGame}
-                        dateCreated={tournament.dateCreated}
                         tournamentTeams={tournament.teams}
                         currentUser={this.props.currentUser}
                         teamsResult={this.props.teamsResult}
@@ -150,11 +141,13 @@ export default class Overview extends React.Component{
 
     render(){
 
+        //CSS styles using react
     	let headerStyle = {
             fontSize: '50px',
             fontWeight: '300',
         }
 
+        //RETURN
         return(
         	<div className="ui column centered grid">
 				<h1 style={headerStyle} className="ui column middle aligned header inverted row">Overview</h1>
